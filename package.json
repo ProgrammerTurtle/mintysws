@@ -1,14 +1,23 @@
 {
   "name": "mint-ysws",
-  "type": "module",
   "version": "0.0.1",
+  "private": true,
+  "type": "module",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "check": "astro check"
   },
   "dependencies": {
     "astro": "^4.16.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.3",
+    "typescript": "^5.6.3"
+  },
+  "engines": {
+    "node": ">=18.17.1"
   }
 }
