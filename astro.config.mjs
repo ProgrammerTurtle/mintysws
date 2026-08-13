@@ -1,6 +1,6 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://program​​merturtle.github.io',
+  site: 'https://programmmerturtle.github.io',
   base: '/mintysws'
 });
