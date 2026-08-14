@@ -248,6 +248,22 @@ const description = "Ship a hardware project sized to an Altoids tin, get a $75 
     z-index: 99;
   }
 
+  @media (max-width: 640px) {
+    .crt-screen::before {
+      background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.15) 100%);
+    }
+
+    .crt-screen::after {
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.05),
+        rgba(0, 0, 0, 0.05) 2px,
+        transparent 2px,
+        transparent 4px
+      );
+    }
+  }
+
   .crt-content {
     background: var(--bg);
     position: relative;
