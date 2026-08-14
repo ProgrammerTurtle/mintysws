@@ -79,6 +79,11 @@ it from a general "build something" grant:
 - It is a **Hack Club** YSWS. The organization is written "Hack Club" — never
   "Hackclub", "hack club", or "HackClub".
 - "You ship, we ship" is the established framing of the exchange.
+- **Required of every Hack Club YSWS site, not optional:** the footer must link
+  the Hack Club Privacy Policy and Terms and Conditions
+  (https://hackclub.com/privacy-and-terms) and the Fulfillment bounty
+  (https://forms.hackclub.com/bounty). These are compliance links; do not prune
+  them as footer clutter.
 
 ## Evidence on Hand
 

@@ -1,0 +1,17 @@
+---
+// The stock the page is printed on: broad blotching from uneven paper, plus a
+// finer directional fibre, both multiplied into the ink beneath.
+//
+// Fixed rather than absolute so the texture stays put while the page scrolls —
+// paper does not slide under its own print. Purely decorative, so it never
+// intercepts a pointer or reaches the accessibility tree.
+//
+// No edge darkening here, unlike the flyer: on a full-height page that reads as
+// a vignette rather than a handled edge, and it was measurably eating contrast
+// from body copy near the viewport edge.
+---
+
+<div class="pointer-events-none fixed inset-0 z-50" aria-hidden="true">
+  <div class="paper-mottle absolute inset-0 opacity-[0.13]"></div>
+  <div class="paper-fibre absolute inset-0 opacity-[0.09]"></div>
+</div>

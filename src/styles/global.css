@@ -8,7 +8,10 @@
    land around 5.6:1 rather than grazing the 4.5 AA line.
 --------------------------------------------------------------------------- */
 @theme {
-  --font-sans: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  /* Body face. A serif, because the page is a printed ad and not a piece
+     of software -- the mono this replaced was the voice of a CRT concept
+     that no longer exists. */
+  --font-body: "Libre Baskerville", Georgia, "Times New Roman", serif;
   /* Bungee Inline: drawn for New York signage, with an inline stroke that
      reads as a lit tube. Runs roughly 2x Anton's line height and much wider
      per character, so display sizes across the site are set well below where
@@ -17,7 +20,8 @@
   --font-display: "Bungee Inline", "Bungee", ui-sans-serif, sans-serif;
   --font-script: "Yellowtail", ui-serif, cursive;
 
-  --color-screen: oklch(0.94 0.022 85);
+  /* Aged stock: yellower and a shade darker than fresh cream. */
+  --color-screen: oklch(0.915 0.038 84);
   --color-screen-2: oklch(0.89 0.026 82);
   --color-phosphor: oklch(0.24 0.022 50);
   --color-phosphor-dim: oklch(0.44 0.022 50);
@@ -70,6 +74,11 @@
   html {
     color-scheme: light;
     scroll-behavior: smooth;
+  }
+
+  body {
+    /* Ink spread: a hair of bleed into the fibre, not a blur. */
+    text-shadow: 0 0 0.4px currentColor;
   }
 
   /* The crawl is the only animation left, and it is pure ambience, so it
@@ -147,6 +156,48 @@
   background-color: var(--tube, var(--color-signal));
 }
 
+/* Justified body copy, as a period page was set. Applied per block rather than
+   to every paragraph: justification needs roughly 55 characters to distribute
+   cleanly, and a blanket rule caught the script flourishes and the card copy
+   too. Measured at 375px, that produced word gaps of 10.8x normal in the
+   script sell line and 8.9x in the step copy -- rivers, not texture. So the
+   alignment only switches on at `sm`, where the measure can carry it, and
+   hyphenation is always on to give it something to break. */
+@utility justified {
+  hyphens: auto;
+  -webkit-hyphens: auto;
+
+  @variant sm {
+    text-align: justify;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Press artifacts. Shared by the page and the flyer so the two agree.
+--------------------------------------------------------------------------- */
+
+/* Misregistration: the red plate sits a fraction off the black, so a dark
+   fringe shows on one side. A cheap-press artifact, almost subliminal. */
+@utility misregistered {
+  text-shadow:
+    0 0 0.4px currentColor,
+    0.09em 0.06em 0 color-mix(in oklab, var(--color-phosphor) 26%, transparent);
+}
+
+/* Broad blotching from uneven stock. */
+@utility paper-mottle {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.014' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23m)'/%3E%3C/svg%3E");
+  background-size: 400px 400px;
+  mix-blend-mode: multiply;
+}
+
+/* Finer, slightly directional fibre in the sheet itself. */
+@utility paper-fibre {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75 0.95' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23f)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+  mix-blend-mode: multiply;
+}
+
 /* ---------------------------------------------------------------------------
    Hand-made edges. Lopsided radii read as drawn-by-hand rather than
    drawn-by-machine; alternating the two keeps a row of panels from looking
@@ -212,3 +263,12 @@
 /* ---------------------------------------------------------------------------
    Press texture
 --------------------------------------------------------------------------- */
+
+/* Textures are decoration, not information: drop them when the user asks for
+   higher contrast or less transparency. */
+@media (prefers-contrast: more), (prefers-reduced-transparency: reduce) {
+  .paper-mottle,
+  .paper-fibre {
+    background-image: none;
+  }
+}

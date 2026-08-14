@@ -1,4 +1,5 @@
 ---
+import PaperStock from '../components/PaperStock.astro';
 import { withBase } from '../lib/url';
 import { THEME_COLOR } from '../lib/theme';
 import '../styles/global.css';
@@ -35,7 +36,7 @@ const ogImage = new URL(withBase('altoids-tin-trimmed.png'), Astro.site);
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Bungee+Inline&family=IBM+Plex+Mono:wght@400;600;700&family=Yellowtail&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bungee+Inline&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Yellowtail&display=swap"
       rel="stylesheet"
     />
 
@@ -43,8 +44,10 @@ const ogImage = new URL(withBase('altoids-tin-trimmed.png'), Astro.site);
   </head>
 
   <body
-    class="isolate min-h-dvh bg-screen font-sans text-phosphor antialiased"
+    class="isolate min-h-dvh bg-screen font-body text-phosphor antialiased"
   >
+    <PaperStock />
+
     <slot />
   </body>
 </html>

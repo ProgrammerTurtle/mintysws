@@ -2,14 +2,12 @@
 import Starburst from './Starburst.astro';
 import { withBase } from '../lib/url';
 
-// Trimmed of its transparent padding, from the 960x622 master in src/assets.
-// At 824px wide it is no longer upscaled at any breakpoint, which the previous
-// 422px source was — 1.57x on desktop, worse on high-density screens.
-// AVIF and WebP are 60% and 50% lighter than the PNG; the PNG stays as the
-// fallback and as the Open Graph image, since scrapers are unreliable on both.
-const tin = withBase('altoids-tin-trimmed.png');
-const tinWebp = withBase('altoids-tin-trimmed.webp');
-const tinAvif = withBase('altoids-tin-trimmed.avif');
+// Screened to 8x8 clustered dots at generation time, not filtered in CSS, so
+// the tin reads as a period halftone rather than a glossy packshot. Trimmed
+// from the 960x622 master in src/assets, so it is not upscaled at any
+// breakpoint. The untouched photo stays as the Open Graph image, where a
+// halftone would read as a rendering fault rather than a choice.
+const tin = withBase('altoids-tin-halftone.png');
 ---
 
 <div class="relative page-container pt-12 pb-16 sm:pt-16 sm:pb-24">
@@ -41,7 +39,9 @@ const tinAvif = withBase('altoids-tin-trimmed.avif');
   <h1
     class="mt-4 max-w-[20ch] font-display text-4xl leading-[1.15] text-balance uppercase sm:text-5xl lg:text-6xl"
   >
-    <span class="rule-through neon [--tube:var(--color-signal)]">Mint</span>
+    <span class="rule-through misregistered neon [--tube:var(--color-signal)]"
+      >Mint</span
+    >
     <span class="text-phosphor">brings you</span>
     <span class="neon [--tube:var(--color-mint)]">&ldquo;tin-sized&rdquo;</span>
     <span class="text-phosphor">hardware</span>
@@ -50,19 +50,15 @@ const tinAvif = withBase('altoids-tin-trimmed.avif');
   <div class="mt-10 grid items-center gap-10 lg:grid-cols-[6fr_5fr] lg:gap-x-col-lg">
     <div>
       <div class="relative mx-auto w-full max-w-2xl">
-        <picture>
-          <source srcset={tinAvif} type="image/avif" />
-          <source srcset={tinWebp} type="image/webp" />
-          <img
-            src={tin}
-            alt="A closed Altoids tin, the build envelope for a Mint project"
-            width="824"
-            height="602"
-            fetchpriority="high"
-            decoding="async"
-            class="w-full drop-shadow-[3px_8px_16px_color-mix(in_oklab,var(--color-shade)_28%,transparent)]"
-          />
-        </picture>
+        <img
+          src={tin}
+          alt="A closed Altoids tin, the build envelope for a Mint project"
+          width="824"
+          height="602"
+          fetchpriority="high"
+          decoding="async"
+          class="w-full"
+        />
 
         <Starburst
           tone="muted"
@@ -127,7 +123,7 @@ const tinAvif = withBase('altoids-tin-trimmed.avif');
   </p>
 
   <div class="mt-8 grid gap-8 lg:grid-cols-[7fr_5fr] lg:items-end lg:gap-x-panel">
-    <p class="max-w-[56ch] text-lg text-pretty text-phosphor-dim sm:text-base">
+    <p class="justified max-w-[56ch] text-lg text-pretty text-phosphor-dim sm:text-base">
       Mint is a hardware challenge for small spaces. Ship a project sized to a
       real Altoids tin and we&rsquo;ll send you the tin itself plus a $75 grant
       to fill it.
