@@ -12,13 +12,13 @@ const isPlaceholderForm = FORM_URL.includes('your-fillout-form-id');
       id="submit-title"
       class="neon font-display text-3xl leading-[1.2] text-balance uppercase [--tube:var(--color-mint)] sm:text-4xl lg:text-5xl"
     >
-      Submit your project
+      Submit your design
     </h2>
     <p
       class="mx-auto mt-6 max-w-[56ch] text-lg text-pretty text-phosphor-dim sm:text-base"
     >
-      Fill out the form below once your project is built and journaled. Have
-      questions first? Drop them in <a
+      Tell us what you want to build and we&rsquo;ll send the tin and the $75 so
+      you can build it. Questions first? Drop them in <a
         href="https://slack.com/archives/C0BK69GFA0Z"
         class="text-mint underline underline-offset-4 hover:text-phosphor focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint"
         >#mint</a
@@ -33,23 +33,33 @@ const isPlaceholderForm = FORM_URL.includes('your-fillout-form-id');
     class="marquee-bulbs mt-14 -rotate-1 border-x-2 border-amber/45 px-4 py-7 shadow-paste-lg sm:px-6 sm:py-9"
   >
     {
+      /* While the form is unwired the page must still end on an action, not on
+         a diagnostic. The old placeholder printed a source path to visitors and
+         reserved 416px of nothing at the page's climax — the worst possible
+         final impression under the peak-end rule. The developer note lives in
+         the comment above FORM_URL now, not in the DOM. */
       isPlaceholderForm ? (
-        <div class="edge-drawn-alt grid min-h-[26rem] place-items-center border-2 border-dashed border-phosphor/20 px-panel py-8 text-center">
+        <div class="grid place-items-center px-panel py-12 text-center">
           <div>
             <p class="font-display text-base leading-[1.35] text-amber uppercase">
-              Form not connected
+              The form goes live shortly
             </p>
-            <p class="mx-auto mt-4 max-w-[56ch] text-base text-pretty text-phosphor-dim sm:text-sm">
-              Set <code class="text-mint">FORM_URL</code> in
-              <code class="text-mint">src/components/Submit.astro</code> to the
-              live Fillout URL and the embed will render here.
+            <p class="mx-auto mt-5 max-w-[48ch] text-base text-pretty text-phosphor-dim">
+              Don&rsquo;t wait for it. Post your design in #mint and we&rsquo;ll
+              pick it up from there.
             </p>
+            <a
+              href="https://slack.com/archives/C0BK69GFA0Z"
+              class="edge-drawn mt-8 inline-flex min-h-11 items-center bg-linear-to-br from-mint to-mint-deep px-6 py-3 text-sm font-bold tracking-widest text-screen uppercase shadow-paste hover:from-mint hover:to-mint focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-phosphor"
+            >
+              Post your design in #mint
+            </a>
           </div>
         </div>
       ) : (
         <iframe
           src={FORM_URL}
-          title="Mint submission form"
+          title="Mint design submission form"
           loading="lazy"
           class="h-[32rem] w-full border-2 border-phosphor/15 bg-screen"
         />

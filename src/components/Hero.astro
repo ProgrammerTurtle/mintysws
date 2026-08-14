@@ -13,7 +13,7 @@ const tinAvif = withBase('altoids-tin-trimmed.avif');
 ---
 
 <div class="relative page-container pt-12 pb-16 sm:pt-16 sm:pb-24">
-  <div class="flex items-start justify-between gap-8">
+  <div class="flex flex-wrap items-start justify-between gap-x-8 gap-y-6">
     <p
       class="neon font-script text-5xl [--tube:var(--color-signal)] sm:text-6xl"
     >
@@ -22,7 +22,7 @@ const tinAvif = withBase('altoids-tin-trimmed.avif');
 
     {/* Marquee plate filling the dead space above the red flag */}
     <div
-      class="marquee-bulbs shrink-0 rotate-6 border-x-2 border-amber/45 px-10 py-5 text-center shadow-paste max-sm:hidden"
+      class="marquee-bulbs shrink-0 rotate-6 border-x-2 border-amber/45 px-8 py-4 text-center shadow-paste sm:px-10 sm:py-5"
     >
       <p
         class="neon font-display text-xl leading-[1.25] uppercase [--tube:var(--color-amber)]"
@@ -113,7 +113,7 @@ const tinAvif = withBase('altoids-tin-trimmed.avif');
         class="ad-flag -rotate-1 bg-linear-135 from-signal via-signal to-[color-mix(in_oklab,var(--color-signal)_72%,black)] py-7 pr-6 pl-9 shadow-paste-lg sm:pl-11"
     >
       <p
-        class="font-display text-sm leading-relaxed text-knockout/80 uppercase line-through decoration-2"
+        class="font-display text-sm leading-relaxed text-knockout/90 uppercase line-through decoration-2"
       >
         Not $25&hellip;<br />not $50&hellip;
       </p>
@@ -127,7 +127,7 @@ const tinAvif = withBase('altoids-tin-trimmed.avif');
       <p
         class="mt-4 border-t-2 border-knockout/40 pt-3 text-xs font-bold tracking-widest text-knockout uppercase"
       >
-        Plus the tin itself
+        Plus the tin &mdash; paid before you build
       </p>
       </div>
     </div>
@@ -141,12 +141,18 @@ const tinAvif = withBase('altoids-tin-trimmed.avif');
 
   <div class="mt-8 grid gap-8 lg:grid-cols-[7fr_5fr] lg:items-end lg:gap-x-panel">
     <p class="max-w-[56ch] text-lg text-pretty text-phosphor-dim sm:text-base">
-      Mint is a hardware challenge for small spaces. Ship a project sized to a
-      real Altoids tin and we&rsquo;ll send you the tin itself plus a $75 grant
-      to fill it.
+      Mint is a hardware challenge for small spaces. We send the tin and $75
+      first, then you build something that fits inside it and journal how you
+      got there.
     </p>
 
     <div>
+      {/* Above the CTA: on mobile this used to render 124px BELOW it, asking
+          people to act before telling them whether they qualify. */}
+      <p class="mb-5 text-sm text-phosphor-dim lg:hidden">
+        For teens <span class="text-amber">13&ndash;18</span>.
+      </p>
+
       <div class="flex flex-wrap items-center gap-3">
         <a
           href="#submit"
@@ -162,10 +168,6 @@ const tinAvif = withBase('altoids-tin-trimmed.avif');
         </a>
       </div>
 
-      {/* Shown only below lg — at lg and up the header ident carries this. */}
-      <p class="mt-5 text-sm text-phosphor-dim lg:hidden">
-        For teens <span class="text-amber">13&ndash;18</span>.
-      </p>
     </div>
   </div>
 </div>

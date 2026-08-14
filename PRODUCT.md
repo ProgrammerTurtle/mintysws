@@ -43,7 +43,10 @@ it from a general "build something" grant:
   `JOURNAL.md` file. No timelapses or screen recordings are required.
 - Questions and community happen in the `#mint` channel in the Hack Club
   Slack.
-- Submission is via a hosted Fillout form once the build and journal are done.
+- Submission is a **design** submission, not a finished build: the participant
+  ships a design plus its journal via a hosted Fillout form, and the tin and
+  grant follow. There is no separate place to submit a completed build.
+- "Ship it" means shipping the design, in the Hack Club sense of shipping.
 - The build envelope is the footprint of a real Altoids tin:
   3.75" × 2.375" × 0.8".
 
@@ -53,16 +56,22 @@ it from a general "build something" grant:
   within the tin.
 - **Grant:** $75, issued *before* the build to pay for parts.
 - **Also provided:** the physical Altoids tin to build inside.
-- **Deliverables from the participant:** a hardware project that fits the
-  envelope, and a GitHub journal of the design process.
+- **Intake:** a design for a project that fits the envelope, plus a GitHub
+  journal of the design process. Funding follows the design submission, so a
+  participant never fronts the cost.
+- **Deliverables from the participant:** ultimately a built project that fits
+  the envelope, with the journal kept public.
 - **Eligibility:** any teen aged 13–18, worldwide. Hack Club membership is not
   a precondition.
 - **Timeline:** ongoing. No deadline, no cohort window, no stated cap.
 - **Undecided:** the live Fillout form URL. The site currently renders a
   "form not connected" placeholder in its place
   (`src/components/Submit.astro`, `FORM_URL`).
-- **Undecided:** the review or approval process between submitting and the
-  grant being issued has not been specified.
+- **Sequence:** plan, design, journal the design process, then ship the design
+  for funding and receive the tin. Building happens after funding lands.
+- **Undecided:** how long review takes, and what the approval criteria are.
+  That a design submission is what triggers funding is settled; the timing and
+  bar for saying yes are not.
 
 ## Brand Commitments
 
