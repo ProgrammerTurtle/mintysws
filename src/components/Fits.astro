@@ -60,6 +60,16 @@ const examples = [
               example.edge,
               example.tilt,
               'group flex h-full flex-col border-2 border-phosphor/20 bg-linear-160 from-phosphor/6 to-transparent px-panel py-8 hover:border-(--tube) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--tube)',
+              // These are pinned pieces of paper, so they behave like it:
+              // reach for one and it straightens and lifts off the page. The
+              // shadow does the lifting, the tilt relaxing to zero does the
+              // straightening. Movement is motion-safe; the border colour and
+              // shadow still respond when reduced motion is requested, so the
+              // affordance never depends on the animation.
+              'transition-[rotate,translate,box-shadow] duration-200 ease-out',
+              'hover:shadow-paste-lg focus-visible:shadow-paste-lg',
+              'motion-safe:hover:-translate-y-1 motion-safe:hover:rotate-0',
+              'motion-safe:focus-visible:-translate-y-1 motion-safe:focus-visible:rotate-0',
             ]}
           >
             <span
