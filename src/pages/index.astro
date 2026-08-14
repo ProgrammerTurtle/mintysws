@@ -12,9 +12,11 @@ const description = "Ship a hardware project sized to an Altoids tin, get a $75 
   <title>{title}</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet" />
 </head>
 <body>
+<div class="crt-screen">
+<div class="crt-content">
 <header>
   <div class="topbar">
     <a href="#" class="logo"><span class="dot"></span>MINT</a>
@@ -171,6 +173,8 @@ const description = "Ship a hardware project sized to an Altoids tin, get a $75 
     Mint · a Hack Club YSWS · <a href="https://slack.com/archives/C0BK69GFA0Z">#mint on Slack</a>
   </div>
 </footer>
+</div>
+</div>
 </body>
 </html>
 
@@ -178,50 +182,77 @@ const description = "Ship a hardware project sized to an Altoids tin, get a $75 
 
   :root {
     --bg: #f5e6d3;
-    --bg-alt: #ede0cd;
-    --paper: #faf5f0;
-    --paper-strong: #e8dcc8;
     --ink: #2a1810;
     --ink-soft: #5c4033;
-    --muted: #8b7355;
     --line: rgba(42, 24, 16, 0.15);
-    --accent: #d41e3a;
-    --accent-soft: #f0d6cb;
     --red: #d41e3a;
-    --red-soft: #2d1a0f;
-    --display: 'Instrument Serif', serif;
-    --body: 'Manrope', sans-serif;
-    --mono: 'IBM Plex Mono', monospace;
   }
 
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
+  
   body {
     margin: 0;
-    background: linear-gradient(135deg, #f5e6d3 0%, #ede0cd 100%);
+    background: #1a1410;
     color: var(--ink);
-    font-family: var(--body);
+    font-family: 'Courier Prime', monospace;
     line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
   }
 
-  body::before {
+  .crt-screen {
+    width: 100%;
+    max-width: 900px;
+    background: #1a1410;
+    border: 40px solid #3d2817;
+    border-radius: 40px;
+    box-shadow: 
+      0 0 40px rgba(0, 0, 0, 0.8),
+      inset 0 0 40px rgba(0, 0, 0, 0.5),
+      inset 0 0 0 8px #2a1f15;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .crt-screen::before {
     content: '';
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.4) 100%);
     pointer-events: none;
+    z-index: 100;
+  }
+
+  .crt-screen::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     background: repeating-linear-gradient(
       0deg,
-      rgba(42, 24, 16, 0.03),
-      rgba(42, 24, 16, 0.03) 1px,
+      rgba(0, 0, 0, 0.15),
+      rgba(0, 0, 0, 0.15) 1px,
       transparent 1px,
       transparent 2px
     );
-    z-index: 1000;
+    pointer-events: none;
+    z-index: 99;
+  }
+
+  .crt-content {
+    background: var(--bg);
+    position: relative;
+    z-index: 1;
+    padding: 40px 30px;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -230,32 +261,31 @@ const description = "Ship a hardware project sized to an Altoids tin, get a $75 
   }
 
   a { color: inherit; }
-  .wrap { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+  .wrap { max-width: 100%; margin: 0; padding: 0; }
 
   header {
     position: sticky;
-    top: 0;
+    top: 40px;
     z-index: 50;
-    background: linear-gradient(to bottom, #faf5f0, rgba(250, 245, 240, 0.95));
-    border-bottom: 2px solid var(--line);
+    background: linear-gradient(to bottom, var(--bg), rgba(245, 230, 211, 0.95));
+    border-bottom: 3px dashed var(--red);
     padding: 20px 0;
-    box-shadow: 0 2px 8px rgba(42, 24, 16, 0.08);
+    margin: -40px -30px 40px -30px;
+    padding: 20px 30px;
   }
 
   .topbar {
-    max-width: 1140px;
-    margin: 0 auto;
-    padding: 0 24px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 30px;
   }
 
   .logo {
-    font-family: var(--display);
-    font-size: 16px;
-    font-weight: 600;
-    letter-spacing: -0.02em;
+    font-family: 'Courier Prime', monospace;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
     text-decoration: none;
     color: var(--ink);
     display: flex;
@@ -264,103 +294,138 @@ const description = "Ship a hardware project sized to an Altoids tin, get a $75 
   }
 
   .logo .dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
     background: var(--red);
   }
 
   .topbar nav {
     display: flex;
     align-items: center;
-    gap: 32px;
+    gap: 20px;
+    flex-wrap: wrap;
   }
 
   .topbar nav a {
-    font-family: var(--body);
-    font-size: 14px;
-    font-weight: 500;
+    font-family: 'Courier Prime', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
     text-decoration: none;
-    color: var(--ink-soft);
-    transition: color 0.2s ease;
+    color: var(--ink);
+    text-transform: uppercase;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s;
   }
 
   .topbar nav a:hover { 
-    color: var(--red);
+    border-bottom-color: var(--red);
   }
 
   .topbar .cta-small {
     background: var(--red);
-    color: #faf5f0;
-    padding: 10px 20px;
-    border-radius: 2px;
+    color: var(--bg);
+    padding: 10px 18px;
+    border-radius: 0;
     border: 2px solid var(--red);
-    font-family: var(--body);
-    font-size: 14px;
+    font-family: 'Courier Prime', monospace;
+    font-size: 11px;
     font-weight: 700;
+    letter-spacing: 0.08em;
     cursor: pointer;
     transition: all 0.2s ease;
+    text-decoration: none;
+    text-transform: uppercase;
   }
 
   .topbar .cta-small:hover {
-    opacity: 1;
     background: #b01a31;
     border-color: #b01a31;
-    box-shadow: 2px 2px 0 rgba(176, 26, 49, 0.3);
+    box-shadow: 4px 4px 0 rgba(176, 26, 49, 0.3);
   }
 
   .hero {
-    padding: 88px 0 56px;
-    display: grid;
-    grid-template-columns: 1.08fr 0.92fr;
-    gap: 52px;
-    align-items: center;
+    padding: 40px 0 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    border-bottom: 3px dashed var(--line);
+    margin-bottom: 40px;
   }
 
-  @media (max-width: 860px) {
-    .hero { grid-template-columns: 1fr; padding-top: 56px; }
+  .hero > div:first-child {
+    order: 2;
+  }
+
+  .tin-stage {
+    order: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .tin-photo-frame {
+    position: relative;
+    width: 280px;
+    height: 280px;
+    padding: 16px;
+    border: 4px solid var(--ink);
+    background: var(--bg);
+    box-shadow: 8px 8px 0 rgba(42, 24, 16, 0.2), inset 0 0 0 1px #e8dcc8;
+  }
+
+  .tin-photo-frame img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
   }
 
   .eyebrow {
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.18em;
+    font-family: 'Courier Prime', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
     text-transform: uppercase;
     color: var(--red);
-    margin: 0 0 16px;
+    margin: 0 0 12px;
+    font-weight: 700;
   }
 
   h1 {
-    font-family: var(--display);
-    font-weight: 400;
-    font-size: clamp(42px, 6vw, 82px);
-    line-height: 1;
-    letter-spacing: -0.02em;
-    margin: 0 0 32px;
+    font-family: 'Courier Prime', monospace;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+    margin: 0 0 20px;
     color: var(--ink);
   }
 
   h1 .accent {
     color: var(--red);
-    font-style: normal;
   }
 
   .lede {
-    font-size: clamp(1.05rem, 1.8vw, 1.35rem);
+    font-size: 14px;
     color: var(--ink-soft);
-    max-width: 42ch;
-    margin: 0 0 32px;
+    max-width: 50ch;
+    margin: 0 0 24px;
+    line-height: 1.7;
   }
 
-  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+  .hero-ctas { 
+    display: flex; 
+    gap: 12px; 
+    flex-wrap: wrap; 
+  }
 
   .btn {
-    font-family: var(--mono);
-    font-size: 12px;
-    letter-spacing: 0.12em;
+    font-family: 'Courier Prime', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    padding: 16px 24px;
-    border-radius: 2px;
+    padding: 14px 20px;
+    border-radius: 0;
     text-decoration: none;
     display: inline-flex;
     align-items: center;
@@ -370,12 +435,11 @@ const description = "Ship a hardware project sized to an Altoids tin, get a $75 
     cursor: pointer;
     white-space: nowrap;
     flex-shrink: 0;
-    font-weight: 600;
+    font-weight: 700;
   }
 
   .btn:hover { 
-    transform: none;
-    box-shadow: 2px 2px 0 rgba(42, 24, 16, 0.2);
+    box-shadow: 3px 3px 0 rgba(42, 24, 16, 0.2);
   }
 
   .btn:focus-visible {
@@ -385,16 +449,14 @@ const description = "Ship a hardware project sized to an Altoids tin, get a $75 
 
   .btn-primary {
     background: var(--red);
-    color: #faf5f0;
+    color: var(--bg);
     border-color: var(--red);
-    box-shadow: none;
-    font-weight: 700;
   }
 
   .btn-primary:hover {
     background: #b01a31;
     border-color: #b01a31;
-    box-shadow: 3px 3px 0 rgba(212, 30, 58, 0.2);
+    box-shadow: 4px 4px 0 rgba(212, 30, 58, 0.2);
   }
 
   .btn-ghost {
@@ -409,233 +471,234 @@ const description = "Ship a hardware project sized to an Altoids tin, get a $75 
     color: var(--red);
   }
 
-  .tin-stage { display: flex; justify-content: center; }
-
-  .tin-photo-frame {
-    position: relative;
-    width: min(100%, 360px);
-    padding: 12px;
-    border: 3px solid #2a1810;
-    background: #faf5f0;
-    transform: none;
-    box-shadow: 0 4px 12px rgba(42, 24, 16, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.5);
-  }
-
-  .tin-photo-frame img {
-    display: block;
-    width: 100%;
-    height: auto;
-    background: transparent;
-  }
-
-  .spec-tag {
-    margin-top: 16px;
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    text-align: center;
-  }
-
-  .spec-tag span { color: var(--red); }
-
   section {
-    padding: 64px 0;
-    border-top: 1px solid var(--line);
+    padding: 40px 0;
+    border-bottom: 3px dashed var(--line);
+    margin-bottom: 40px;
+  }
+
+  section:last-of-type {
+    border-bottom: none;
   }
 
   h2 {
-    font-family: var(--display);
-    font-weight: 400;
-    font-size: clamp(34px, 4vw, 54px);
-    line-height: 1;
-    margin: 0 0 32px;
-    letter-spacing: -0.04em;
+    font-family: 'Courier Prime', monospace;
+    font-weight: 700;
+    font-size: 26px;
+    line-height: 1.2;
+    margin: 0 0 24px;
+    letter-spacing: 0.01em;
+    color: var(--ink);
   }
 
   .section-kicker {
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.16em;
+    font-family: 'Courier Prime', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
     text-transform: uppercase;
     color: var(--red);
     margin: 0 0 12px;
-    font-weight: 600;
+    font-weight: 700;
   }
 
   .section-intro {
     color: var(--ink-soft);
-    max-width: 62ch;
-    margin: 0 0 32px;
-    font-size: 1.03rem;
+    max-width: 65ch;
+    margin: 0 0 28px;
+    font-size: 14px;
+    line-height: 1.7;
   }
 
   .deal-grid {
     display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    gap: 24px;
-    align-items: stretch;
-  }
-
-  @media (max-width:720px) {
-    .deal-grid { grid-template-columns: 1fr; }
-    .deal-grid .swap-icon { display: none; }
+    grid-template-columns: 1fr;
+    gap: 20px;
   }
 
   .deal-card {
-    background: #faf5f0;
-    border: 2px solid var(--line);
-    border-radius: 2px;
-    padding: 24px 24px;
-    box-shadow: 0 2px 4px rgba(42, 24, 16, 0.05);
+    background: var(--bg);
+    border: 2px solid var(--ink);
+    border-radius: 0;
+    padding: 20px;
+    box-shadow: 3px 3px 0 rgba(42, 24, 16, 0.1);
   }
 
   .deal-card h3 {
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.18em;
+    font-family: 'Courier Prime', monospace;
+    font-size: 12px;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    margin: 0 0 16px;
+    margin: 0 0 14px;
     color: var(--red);
+    font-weight: 700;
   }
 
-  .deal-card ul { margin: 0; padding: 0; list-style: none; }
+  .deal-card ul { 
+    margin: 0; 
+    padding: 0; 
+    list-style: none; 
+  }
+
   .deal-card li {
     display: flex;
-    gap: 12px;
-    padding: 12px 0;
+    gap: 10px;
+    padding: 8px 0;
     border-top: 1px solid var(--line);
     color: var(--ink-soft);
-    font-size: 0.95rem;
+    font-size: 13px;
   }
-  .deal-card li:first-child { border-top: none; padding-top: 0; }
-  .deal-card li::before { content: "—"; color: var(--red); }
+
+  .deal-card li:first-child { 
+    border-top: none; 
+    padding-top: 0; 
+  }
+
+  .deal-card li::before { 
+    content: "▸"; 
+    color: var(--red); 
+    flex-shrink: 0;
+  }
 
   .swap-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--mono);
-    color: var(--red);
-    font-size: 28px;
+    display: none;
   }
 
   .fits-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 16px;
   }
 
   .fit-card {
     display: block;
-    background: #faf5f0;
-    border: 2px solid var(--line);
-    border-radius: 2px;
-    padding: 20px 20px;
+    background: var(--bg);
+    border: 2px solid var(--ink);
+    border-radius: 0;
+    padding: 18px;
     transition: all 0.2s ease;
     text-decoration: none;
     color: inherit;
   }
 
   .fit-card:hover {
-    transform: translateY(-2px);
+    transform: none;
     background: #f5e6d3;
     border-color: var(--red);
-    box-shadow: 0 4px 8px rgba(42, 24, 16, 0.1);
+    box-shadow: 4px 4px 0 rgba(212, 30, 58, 0.15);
   }
 
   .fit-card .icon {
     color: var(--red);
-    margin-bottom: 16px;
+    margin-bottom: 12px;
   }
 
   .fit-card h4 {
-    font-family: var(--body);
+    font-family: 'Courier Prime', monospace;
     font-weight: 700;
-    font-size: 1.18rem;
+    font-size: 13px;
     line-height: 1.2;
     margin: 0 0 8px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
   }
 
-  .fit-card p { margin: 0; color: var(--ink-soft); font-size: 0.97rem; }
+  .fit-card p { 
+    margin: 0; 
+    color: var(--ink-soft); 
+    font-size: 12px;
+    line-height: 1.6;
+  }
 
   .steps {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
   }
 
-  @media (max-width:860px) { .steps { grid-template-columns: 1fr 1fr; } }
-  @media (max-width:520px) { .steps { grid-template-columns: 1fr; } }
-
   .step {
-    padding-top: 20px;
-    border-top: 2px solid var(--red);
+    padding: 16px;
+    border: 2px solid var(--red);
+    background: transparent;
   }
 
   .step .num {
     display: block;
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.14em;
+    font-family: 'Courier Prime', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--red);
-    margin-bottom: 16px;
-    font-weight: 600;
+    margin-bottom: 12px;
+    font-weight: 700;
   }
 
   .step h4 { 
-    font-family: var(--body); 
-    font-weight: 600;
-    font-size: 1.1rem; 
+    font-family: 'Courier Prime', monospace;
+    font-weight: 700;
+    font-size: 13px;
     margin: 0 0 8px;
     color: var(--ink);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
   }
-  .step p { margin: 0; color: var(--ink-soft); font-size: 0.95rem; }
+
+  .step p { 
+    margin: 0; 
+    color: var(--ink-soft); 
+    font-size: 12px;
+    line-height: 1.6;
+  }
 
   .why {
-    background: #faf5f0;
-    border: 2px solid var(--line);
-    border-radius: 2px;
-    padding: 40px 40px;
-    display: grid;
-    grid-template-columns: 0.9fr 1.1fr;
-    gap: 40px;
-    align-items: center;
-    box-shadow: 0 2px 4px rgba(42, 24, 16, 0.05);
+    background: var(--bg);
+    border: 2px solid var(--ink);
+    border-radius: 0;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    box-shadow: 3px 3px 0 rgba(42, 24, 16, 0.1);
   }
-
-  @media (max-width:760px) { .why { grid-template-columns: 1fr; } }
 
   .why blockquote {
     margin: 0;
-    padding-left: 24px;
+    padding-left: 16px;
     border-left: 4px solid var(--red);
-    font-family: var(--display);
-    font-size: clamp(1.6rem, 2vw, 2.2rem);
-    line-height: 1.2;
-    font-style: normal;
+    font-family: 'Courier Prime', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    font-weight: 700;
     color: var(--ink);
   }
 
-  .why .why-copy p { margin: 0 0 16px; color: var(--ink-soft); }
-
-  .submit-panel {
-    background: #faf5f0;
-    border: 2px solid var(--line);
-    border-radius: 2px;
-    padding: 32px 32px;
-    text-align: center;
-    box-shadow: 0 2px 4px rgba(42, 24, 16, 0.05);
+  .why .why-copy p { 
+    margin: 0 0 12px; 
+    color: var(--ink-soft);
+    font-size: 13px;
+    line-height: 1.7;
   }
 
-  .submit-panel p { color: var(--ink-soft); max-width: 52ch; margin: 0 auto 32px; }
+  .submit-panel {
+    background: var(--bg);
+    border: 2px solid var(--ink);
+    border-radius: 0;
+    padding: 28px;
+    text-align: center;
+    box-shadow: 3px 3px 0 rgba(42, 24, 16, 0.1);
+  }
+
+  .submit-panel p { 
+    color: var(--ink-soft); 
+    max-width: 55ch; 
+    margin: 0 auto 24px;
+    font-size: 13px;
+    line-height: 1.7;
+  }
 
   .form-embed {
-    background: #f5e6d3;
+    background: #ede0cd;
     border: 2px solid var(--line);
-    border-radius: 2px;
+    border-radius: 0;
     overflow: hidden;
     min-height: 420px;
     display: flex;
@@ -647,28 +710,83 @@ const description = "Ship a hardware project sized to an Altoids tin, get a $75 
     width: 100%;
     height: 520px;
     border: none;
-    background: var(--paper);
   }
 
   .form-note {
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.12em;
+    font-family: 'Courier Prime', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--muted);
-    margin-top: 16px;
+    color: var(--ink-soft);
+    margin-top: 12px;
   }
 
   footer {
-    padding: 36px 0 52px;
+    padding: 28px 0 0;
     text-align: center;
-    font-family: var(--mono);
+    font-family: 'Courier Prime', monospace;
     color: var(--ink-soft);
-    font-size: 11px;
+    font-size: 10px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
+    border-top: 3px dashed var(--line);
   }
 
-  footer a { color: var(--red); text-decoration: none; }
-  footer a:hover { text-decoration: underline; }
+  footer a { 
+    color: var(--red); 
+    text-decoration: none;
+  }
+
+  footer a:hover { 
+    text-decoration: underline;
+  }
+
+  @media (max-width: 860px) {
+    .crt-screen {
+      border: 20px solid #3d2817;
+      border-radius: 20px;
+    }
+
+    .crt-content {
+      padding: 24px 20px;
+    }
+
+    header {
+      margin: -24px -20px 30px -20px;
+      padding: 16px 20px;
+    }
+
+    h1 {
+      font-size: 24px;
+    }
+
+    h2 {
+      font-size: 20px;
+    }
+
+    .hero {
+      gap: 30px;
+    }
+
+    .tin-photo-frame {
+      width: 240px;
+      height: 240px;
+    }
+
+    .deal-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .fits-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .steps {
+      grid-template-columns: 1fr;
+    }
+
+    .why {
+      grid-template-columns: 1fr;
+    }
+  }
 </style>
