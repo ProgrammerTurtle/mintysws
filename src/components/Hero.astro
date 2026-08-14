@@ -10,7 +10,7 @@ const tin = withBase('altoids-tin-trimmed.png');
 <div class="relative page-container pt-12 pb-16 sm:pt-16 sm:pb-24">
   <div class="flex items-start justify-between gap-8">
     <p
-      class="neon font-script text-5xl [--tube:var(--color-signal)] motion-safe:animate-buzz sm:text-6xl"
+      class="neon font-script text-5xl [--tube:var(--color-signal)] sm:text-6xl"
     >
       Now!
     </p>
@@ -47,7 +47,7 @@ const tin = withBase('altoids-tin-trimmed.png');
       <div class="relative mx-auto w-full max-w-2xl">
         {/* Light pools where the object is, not at an arbitrary offset */}
         <div
-          class="bloom pointer-events-none absolute -inset-16 -z-10 [--tube:var(--color-mint)] motion-safe:animate-buzz-slow"
+          class="bloom pointer-events-none absolute -inset-16 -z-10 [--tube:var(--color-mint)]"
           aria-hidden="true"
         >
         </div>
@@ -59,7 +59,7 @@ const tin = withBase('altoids-tin-trimmed.png');
           height="311"
           fetchpriority="high"
           decoding="async"
-          class="w-full drop-shadow-[0_0_60px_color-mix(in_oklab,var(--color-mint)_35%,transparent)] motion-safe:animate-buzz-slow"
+          class="w-full drop-shadow-[0_0_60px_color-mix(in_oklab,var(--color-mint)_35%,transparent)]"
         />
 
         <Starburst
@@ -109,14 +109,14 @@ const tin = withBase('altoids-tin-trimmed.png');
         Not $25&hellip;<br />not $50&hellip;
       </p>
       <p
-        class="mt-3 font-display text-2xl leading-[1.2] text-phosphor uppercase"
+        class="mt-3 font-display text-2xl leading-[1.2] text-knockout uppercase"
       >
         but a full<br /><span
-          class="neon text-[1.6em] [--tube:var(--color-amber)]">$75</span
+          class="neon text-[1.6em] [--tube:var(--color-amber-lit)]">$75</span
         > grant
       </p>
       <p
-        class="mt-4 border-t-2 border-phosphor/40 pt-3 text-xs font-bold tracking-widest text-phosphor uppercase"
+        class="mt-4 border-t-2 border-knockout/40 pt-3 text-xs font-bold tracking-widest text-knockout uppercase"
       >
         Plus the tin itself
       </p>

@@ -6,20 +6,29 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description: string;
+  theme?: 'dark' | 'light';
 }
 
-const { title, description } = Astro.props;
+// Light is the house style: the reference is a printed ad, not a lit sign.
+// The dark tube palette is kept and reachable via theme="dark".
+const { title, description, theme = 'light' } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(withBase('altoids-tin-trimmed.png'), Astro.site);
 ---
 
 <!doctype html>
-<html lang="en" class="scheme-only-dark bg-cabinet">
+<html
+  lang="en"
+  class:list={['bg-cabinet', theme === 'light' ? 'theme-light' : 'scheme-only-dark']}
+>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#2a2118" />
+    <meta
+      name="theme-color"
+      content={theme === 'light' ? '#c9a882' : '#2a2118'}
+    />
     <link rel="canonical" href={canonical} />
 
     <meta property="og:type" content="website" />
