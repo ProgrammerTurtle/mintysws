@@ -12,7 +12,7 @@ const description = "Ship a hardware project sized to an Altoids tin, get a $75 
   <title>{title}</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet" />
 </head>
 <body>
 <div class="crt-screen">
@@ -269,15 +269,10 @@ const description = "Ship a hardware project sized to an Altoids tin, get a $75 
     position: relative;
     z-index: 1;
     padding: 36px 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
-
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-    * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
-  }
-
-  a { color: inherit; }
-  .wrap { max-width: 100%; margin: 0; padding: 0; }
 
   header {
     position: sticky;
@@ -285,33 +280,36 @@ const description = "Ship a hardware project sized to an Altoids tin, get a $75 
     z-index: 50;
     background: linear-gradient(to bottom, var(--bg), rgba(245, 230, 211, 0.95));
     border-bottom: 3px dashed var(--red);
-    padding: 20px 0;
-    margin: -36px -28px 40px -28px;
     padding: 20px 28px;
+    margin: 0 -28px 40px -28px;
+    width: calc(100% + 56px);
+    display: flex;
+    justify-content: center;
   }
 
   .topbar {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 30px;
+    justify-content: center;
+    gap: 40px;
+    flex-direction: column;
   }
 
   .logo {
-    font-family: 'Courier Prime', monospace;
-    font-size: 18px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 900;
+    letter-spacing: 0.05em;
     text-decoration: none;
     color: var(--ink);
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 12px;
   }
 
   .logo .dot {
-    width: 12px;
-    height: 12px;
+    width: 14px;
+    height: 14px;
     border-radius: 2px;
     background: var(--red);
   }
@@ -319,15 +317,16 @@ const description = "Ship a hardware project sized to an Altoids tin, get a $75 
   .topbar nav {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 24px;
+    justify-content: center;
     flex-wrap: wrap;
   }
 
   .topbar nav a {
     font-family: 'Courier Prime', monospace;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
     text-decoration: none;
     color: var(--ink);
     text-transform: uppercase;
@@ -342,7 +341,7 @@ const description = "Ship a hardware project sized to an Altoids tin, get a $75 
   .topbar .cta-small {
     background: var(--red);
     color: var(--bg);
-    padding: 10px 18px;
+    padding: 12px 20px;
     border-radius: 0;
     border: 2px solid var(--red);
     font-family: 'Courier Prime', monospace;
@@ -361,6 +360,13 @@ const description = "Ship a hardware project sized to an Altoids tin, get a $75 
     box-shadow: 4px 4px 0 rgba(176, 26, 49, 0.3);
   }
 
+  .wrap {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0;
+    width: 100%;
+  }
+
   .hero {
     padding: 40px 0 60px;
     display: flex;
@@ -368,6 +374,8 @@ const description = "Ship a hardware project sized to an Altoids tin, get a $75 
     gap: 40px;
     border-bottom: 3px dashed var(--line);
     margin-bottom: 40px;
+    align-items: center;
+    text-align: center;
   }
 
   .hero > div:first-child {
@@ -378,6 +386,20 @@ const description = "Ship a hardware project sized to an Altoids tin, get a $75 
     order: 1;
     display: flex;
     justify-content: center;
+    position: relative;
+  }
+
+  .tin-stage::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: -120px;
+    width: 200px;
+    height: 200px;
+    background: var(--red);
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    opacity: 0.15;
+    z-index: -1;
   }
 
   .tin-photo-frame {
@@ -397,6 +419,18 @@ const description = "Ship a hardware project sized to an Altoids tin, get a $75 
     object-fit: contain;
   }
 
+  .spec-tag {
+    margin-top: 16px;
+    font-family: 'Courier Prime', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    text-align: center;
+  }
+
+  .spec-tag span { color: var(--red); }
+
   .eyebrow {
     font-family: 'Courier Prime', monospace;
     font-size: 10px;
@@ -408,31 +442,33 @@ const description = "Ship a hardware project sized to an Altoids tin, get a $75 
   }
 
   h1 {
-    font-family: 'Courier Prime', monospace;
-    font-weight: 700;
-    font-size: 32px;
-    line-height: 1.2;
-    letter-spacing: 0.02em;
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 44px;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
     margin: 0 0 20px;
     color: var(--ink);
   }
 
   h1 .accent {
     color: var(--red);
+    font-style: italic;
   }
 
   .lede {
     font-size: 14px;
     color: var(--ink-soft);
     max-width: 50ch;
-    margin: 0 0 24px;
+    margin: 0 auto 24px;
     line-height: 1.7;
   }
 
   .hero-ctas { 
     display: flex; 
     gap: 12px; 
-    flex-wrap: wrap; 
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .btn {
@@ -491,6 +527,8 @@ const description = "Ship a hardware project sized to an Altoids tin, get a $75 
     padding: 40px 0;
     border-bottom: 3px dashed var(--line);
     margin-bottom: 40px;
+    width: 100%;
+    text-align: center;
   }
 
   section:last-of-type {
@@ -498,12 +536,12 @@ const description = "Ship a hardware project sized to an Altoids tin, get a $75 
   }
 
   h2 {
-    font-family: 'Courier Prime', monospace;
-    font-weight: 700;
-    font-size: 26px;
-    line-height: 1.2;
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 36px;
+    line-height: 1.1;
     margin: 0 0 24px;
-    letter-spacing: 0.01em;
+    letter-spacing: -0.01em;
     color: var(--ink);
   }
 
@@ -519,8 +557,8 @@ const description = "Ship a hardware project sized to an Altoids tin, get a $75 
 
   .section-intro {
     color: var(--ink-soft);
-    max-width: 65ch;
-    margin: 0 0 28px;
+    max-width: 55ch;
+    margin: 0 auto 28px;
     font-size: 14px;
     line-height: 1.7;
   }
@@ -537,6 +575,25 @@ const description = "Ship a hardware project sized to an Altoids tin, get a $75 
     border-radius: 0;
     padding: 20px;
     box-shadow: 3px 3px 0 rgba(42, 24, 16, 0.1);
+    position: relative;
+  }
+
+  .deal-card::before {
+    content: '';
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 40px;
+    background: var(--red);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: var(--bg);
+    z-index: 2;
   }
 
   .deal-card h3 {
@@ -562,6 +619,7 @@ const description = "Ship a hardware project sized to an Altoids tin, get a $75 
     border-top: 1px solid var(--line);
     color: var(--ink-soft);
     font-size: 13px;
+    justify-content: center;
   }
 
   .deal-card li:first-child { 
@@ -581,41 +639,56 @@ const description = "Ship a hardware project sized to an Altoids tin, get a $75 
 
   .fits-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-columns: 1fr;
     gap: 16px;
   }
 
   .fit-card {
     display: block;
     background: var(--bg);
-    border: 2px solid var(--ink);
+    border: 2px solid var(--red);
     border-radius: 0;
     padding: 18px;
     transition: all 0.2s ease;
     text-decoration: none;
     color: inherit;
+    position: relative;
+  }
+
+  .fit-card::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 36px;
+    height: 36px;
+    background: var(--red);
+    clip-path: circle(50%);
+    border: 2px solid var(--ink);
   }
 
   .fit-card:hover {
     transform: none;
     background: #f5e6d3;
-    border-color: var(--red);
+    border-color: var(--ink);
     box-shadow: 4px 4px 0 rgba(212, 30, 58, 0.15);
   }
 
   .fit-card .icon {
-    color: var(--red);
+    color: var(--ink);
     margin-bottom: 12px;
+    margin-top: 8px;
   }
 
   .fit-card h4 {
-    font-family: 'Courier Prime', monospace;
+    font-family: 'Playfair Display', serif;
     font-weight: 700;
-    font-size: 13px;
+    font-size: 16px;
     line-height: 1.2;
     margin: 0 0 8px;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    color: var(--ink);
   }
 
   .fit-card p { 
@@ -627,7 +700,7 @@ const description = "Ship a hardware project sized to an Altoids tin, get a $75 
 
   .steps {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: 1fr;
     gap: 16px;
   }
 
@@ -635,27 +708,40 @@ const description = "Ship a hardware project sized to an Altoids tin, get a $75 
     padding: 16px;
     border: 2px solid var(--red);
     background: transparent;
+    position: relative;
+  }
+
+  .step::before {
+    content: '';
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 44px;
+    height: 44px;
+    background: var(--red);
+    border-radius: 50%;
+    border: 2px solid var(--ink);
   }
 
   .step .num {
     display: block;
-    font-family: 'Courier Prime', monospace;
-    font-size: 10px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--red);
-    margin-bottom: 12px;
-    font-weight: 700;
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 8px;
+    text-align: center;
   }
 
   .step h4 { 
-    font-family: 'Courier Prime', monospace;
+    font-family: 'Playfair Display', serif;
     font-weight: 700;
-    font-size: 13px;
+    font-size: 16px;
     margin: 0 0 8px;
     color: var(--ink);
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
+    letter-spacing: -0.01em;
   }
 
   .step p { 
@@ -678,13 +764,14 @@ const description = "Ship a hardware project sized to an Altoids tin, get a $75 
 
   .why blockquote {
     margin: 0;
-    padding-left: 16px;
-    border-left: 4px solid var(--red);
-    font-family: 'Courier Prime', monospace;
-    font-size: 14px;
-    line-height: 1.6;
+    padding-left: 0;
+    border-left: none;
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    line-height: 1.5;
     font-weight: 700;
     color: var(--ink);
+    font-style: italic;
   }
 
   .why .why-copy p { 
@@ -770,14 +857,23 @@ const description = "Ship a hardware project sized to an Altoids tin, get a $75 
     header {
       margin: -20px -16px 24px -16px;
       padding: 14px 16px;
+      width: calc(100% + 32px);
     }
 
     h1 {
-      font-size: 24px;
+      font-size: 32px;
     }
 
     h2 {
-      font-size: 20px;
+      font-size: 28px;
+    }
+
+    .topbar {
+      gap: 24px;
+    }
+
+    .topbar nav {
+      gap: 12px;
     }
 
     .hero {
@@ -789,20 +885,10 @@ const description = "Ship a hardware project sized to an Altoids tin, get a $75 
       height: 200px;
     }
 
-    .deal-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .fits-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .steps {
-      grid-template-columns: 1fr;
-    }
-
-    .why {
-      grid-template-columns: 1fr;
+    .tin-stage::after {
+      right: -80px;
+      width: 140px;
+      height: 140px;
     }
   }
 </style>
