@@ -7,7 +7,12 @@
 --------------------------------------------------------------------------- */
 @theme {
   --font-sans: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-  --font-display: "Anton", "Arial Narrow", ui-sans-serif, sans-serif;
+  /* Bungee Inline: drawn for New York signage, with an inline stroke that
+     reads as a lit tube. Runs roughly 2x Anton's line height and much wider
+     per character, so display sizes across the site are set well below where
+     a condensed face would sit, and letter-spacing is left alone — tightening
+     it closes up the inline stroke. */
+  --font-display: "Bungee Inline", "Bungee", ui-sans-serif, sans-serif;
   --font-script: "Yellowtail", ui-serif, cursive;
 
   --color-screen: oklch(0.1 0.008 62);

@@ -36,7 +36,7 @@ const steps = [
   <Eyebrow tone="amber">Process</Eyebrow>
   <h2
     id="how-title"
-    class="mt-5 max-w-[24ch] font-display text-4xl tracking-tight text-balance uppercase sm:text-5xl"
+    class="mt-6 max-w-[24ch] font-display text-2xl leading-[1.25] text-balance uppercase sm:text-3xl"
   >
     <span class="text-phosphor text-glow">How it</span>
     <span class="neon [--tube:var(--color-amber)]">works</span>
@@ -47,13 +47,13 @@ const steps = [
       steps.map((step, index) => (
         <li class={step.drop} style={`--tube: ${step.tube}`}>
           <span
-            class="neon block font-display text-6xl tabular-nums"
+            class="neon block font-display text-4xl leading-none tabular-nums"
             aria-hidden="true"
           >
             {String(index + 1).padStart(2, '0')}
           </span>
           <span class="neon-rule mt-4 block h-0.5 w-24" aria-hidden="true" />
-          <h3 class="mt-5 font-display text-2xl tracking-tight text-phosphor uppercase">
+          <h3 class="mt-5 font-display text-base leading-[1.35] text-phosphor uppercase">
             {step.title}
           </h3>
           <p class="mt-3 text-base text-pretty text-phosphor-dim sm:text-sm">
