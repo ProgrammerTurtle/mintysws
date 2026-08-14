@@ -1,5 +1,4 @@
 ---
-import CrtOverlay from '../components/CrtOverlay.astro';
 import { withBase } from '../lib/url';
 import { THEME_COLOR } from '../lib/theme';
 import '../styles/global.css';
@@ -7,21 +6,15 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description: string;
-  theme?: 'dark' | 'light';
 }
 
-// Light is the house style: the reference is a printed ad, not a lit sign.
-// The dark tube palette is kept and reachable via theme="dark".
-const { title, description, theme = 'light' } = Astro.props;
+const { title, description } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(withBase('altoids-tin-trimmed.png'), Astro.site);
 ---
 
 <!doctype html>
-<html
-  lang="en"
-  class:list={['bg-cabinet', theme === 'light' ? 'theme-light' : 'scheme-only-dark']}
->
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta
@@ -29,7 +22,7 @@ const ogImage = new URL(withBase('altoids-tin-trimmed.png'), Astro.site);
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
     <meta name="description" content={description} />
-    <meta name="theme-color" content={THEME_COLOR[theme]} />
+    <meta name="theme-color" content={THEME_COLOR} />
     <link rel="canonical" href={canonical} />
 
     <meta property="og:type" content="website" />
@@ -50,10 +43,8 @@ const ogImage = new URL(withBase('altoids-tin-trimmed.png'), Astro.site);
   </head>
 
   <body
-    class="screen-pad isolate min-h-dvh bg-screen font-sans text-phosphor antialiased"
+    class="isolate min-h-dvh bg-screen font-sans text-phosphor antialiased"
   >
-    <CrtOverlay />
-
     <slot />
   </body>
 </html>

@@ -42,21 +42,14 @@ const tinAvif = withBase('altoids-tin-trimmed.avif');
     class="mt-4 max-w-[20ch] font-display text-4xl leading-[1.15] text-balance uppercase sm:text-5xl lg:text-6xl"
   >
     <span class="rule-through neon [--tube:var(--color-signal)]">Mint</span>
-    <span class="text-phosphor text-glow">brings you</span>
+    <span class="text-phosphor">brings you</span>
     <span class="neon [--tube:var(--color-mint)]">&ldquo;tin-sized&rdquo;</span>
-    <span class="text-phosphor text-glow">hardware</span>
+    <span class="text-phosphor">hardware</span>
   </h1>
 
   <div class="mt-10 grid items-center gap-10 lg:grid-cols-[6fr_5fr] lg:gap-x-col-lg">
     <div>
       <div class="relative mx-auto w-full max-w-2xl">
-        {/* Light pools where the object is, not at an arbitrary offset */}
-        <div
-          class="bloom pointer-events-none absolute -inset-16 -z-10 [--tube:var(--color-mint)]"
-          aria-hidden="true"
-        >
-        </div>
-
         <picture>
           <source srcset={tinAvif} type="image/avif" />
           <source srcset={tinWebp} type="image/webp" />
@@ -95,7 +88,7 @@ const tinAvif = withBase('altoids-tin-trimmed.avif');
       <p
         class="mt-10 text-center text-xs tracking-widest text-phosphor-dim uppercase"
       >
-        Fits within <span class="text-amber text-glow-sm"
+        Fits within <span class="text-amber"
           >3.75" &times; 2.375" &times; 0.8"</span
         ><br />the footprint of a real Altoids tin
       </p>
@@ -103,12 +96,6 @@ const tinAvif = withBase('altoids-tin-trimmed.avif');
 
     {/* The red plate — escalating price callout, hung slightly crooked */}
     <div class="relative">
-      <div
-        class="bloom pointer-events-none absolute -inset-14 -z-10 [--tube:var(--color-signal)]"
-        aria-hidden="true"
-      >
-      </div>
-
       <div
         class="ad-flag -rotate-1 bg-linear-135 from-signal via-signal to-[color-mix(in_oklab,var(--color-signal)_72%,black)] py-7 pr-6 pl-9 shadow-paste-lg sm:pl-11"
     >
@@ -127,7 +114,7 @@ const tinAvif = withBase('altoids-tin-trimmed.avif');
       <p
         class="mt-4 border-t-2 border-knockout/40 pt-3 text-xs font-bold tracking-widest text-knockout uppercase"
       >
-        Plus the tin &mdash; paid before you build
+        Plus the tin itself
       </p>
       </div>
     </div>
@@ -141,9 +128,9 @@ const tinAvif = withBase('altoids-tin-trimmed.avif');
 
   <div class="mt-8 grid gap-8 lg:grid-cols-[7fr_5fr] lg:items-end lg:gap-x-panel">
     <p class="max-w-[56ch] text-lg text-pretty text-phosphor-dim sm:text-base">
-      Mint is a hardware challenge for small spaces. We send the tin and $75
-      first, then you build something that fits inside it and journal how you
-      got there.
+      Mint is a hardware challenge for small spaces. Ship a project sized to a
+      real Altoids tin and we&rsquo;ll send you the tin itself plus a $75 grant
+      to fill it.
     </p>
 
     <div>

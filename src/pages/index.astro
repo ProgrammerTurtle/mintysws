@@ -18,9 +18,10 @@ const description =
 <Layout title={title} description={description}>
   <SiteHeader />
 
-  {/* Decorative light pools bleed past the container by design; clip on the
-      x-axis so they can never open a horizontal scrollbar. `clip` rather than
-      `hidden` so it does not become a scroll container for the sticky header. */}
+  {/* Tilted paste-ups and the marquee track overhang the container by design;
+      clip on the x-axis so they can never open a horizontal scrollbar. `clip`
+      rather than `hidden` so it does not become a scroll container for the
+      sticky header. */}
   <main id="main" class="overflow-x-clip">
     {/* Crawl sits above the hero so it is visible without scrolling */}
     <Ticker />
