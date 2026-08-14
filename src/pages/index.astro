@@ -120,7 +120,7 @@ const description = "Ship a hardware project sized to an Altoids tin, get a $75 
       <div class="step">
         <span class="num">02</span>
         <h4>Design</h4>
-        <p>Sketch it, prototype it, make it real.</p>
+        <p>Sketch it, prototype it, design it.</p>
       </div>
       <div class="step">
         <span class="num">03</span>
@@ -561,7 +561,7 @@ const description = "Ship a hardware project sized to an Altoids tin, get a $75 
   .deal-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 26px;
   }
 
   .deal-card {
@@ -577,13 +577,14 @@ const description = "Ship a hardware project sized to an Altoids tin, get a $75 
   .deal-card::before {
     content: '';
     position: absolute;
-    top: -12px;
+    top: -22px;
     left: 50%;
     transform: translateX(-50%);
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     background: var(--red);
     border-radius: 50%;
+    border: 2px solid var(--ink);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -636,13 +637,13 @@ const description = "Ship a hardware project sized to an Altoids tin, get a $75 
   .fits-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 26px;
   }
 
   .fit-card {
     display: block;
     background: var(--bg);
-    border: 2px solid var(--red);
+    border: 2px solid var(--ink);
     border-radius: 0;
     padding: 18px;
     padding-top: 28px;
@@ -655,13 +656,13 @@ const description = "Ship a hardware project sized to an Altoids tin, get a $75 
   .fit-card::before {
     content: '';
     position: absolute;
-    top: -10px;
+    top: -22px;
     left: 50%;
     transform: translateX(-50%);
-    width: 36px;
-    height: 36px;
+    width: 44px;
+    height: 44px;
     background: var(--red);
-    clip-path: circle(50%);
+    border-radius: 50%;
     border: 2px solid var(--ink);
   }
 
@@ -698,13 +699,13 @@ const description = "Ship a hardware project sized to an Altoids tin, get a $75 
   .steps {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 26px;
   }
 
   .step {
     padding: 16px;
     padding-top: 36px;
-    border: 2px solid var(--red);
+    border: 2px solid var(--ink);
     background: transparent;
     position: relative;
   }
@@ -712,7 +713,7 @@ const description = "Ship a hardware project sized to an Altoids tin, get a $75 
   .step::before {
     content: '';
     position: absolute;
-    top: -12px;
+    top: -22px;
     left: 50%;
     transform: translateX(-50%);
     width: 44px;
