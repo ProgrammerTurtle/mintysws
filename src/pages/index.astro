@@ -40,7 +40,7 @@ const description = "Ship a hardware project sized to an Altoids tin, journal th
     <div class="tin-stage">
       <div>
         <div class="tin-photo-frame">
-          <img src="/altoids-tin.png" alt="An open Altoids tin" />
+          <img src={`${import.meta.env.BASE_URL}altoids-tin.png`} alt="An open Altoids tin" />
         </div>
         <p class="spec-tag">Fits within <span>3.75" × 2.375" × 0.8"</span><br>the footprint of a real Altoids tin</p>
       </div>
@@ -161,11 +161,13 @@ const description = "Ship a hardware project sized to an Altoids tin, journal th
     <div class="submit-panel">
       <p>Fill out the form below once your project is built and journaled. Have questions first? Drop them in <a href="https://slack.com/archives/C0BK69GFA0Z" style="color:var(--mint);">#mint</a>.</p>
       <div class="form-embed">
-        <!-- Replace this src with your real Airtable form share link,
-             e.g. https://airtable.com/embed/appXXXXXXXXXXXXXX/shrXXXXXXXXXXXXXX -->
-        <iframe src="https://airtable.com/embed/appPLACEHOLDER/shrPLACEHOLDER" title="Mint submission form"></iframe>
+        <iframe
+          src="https://form.fillout.com/t/your-fillout-form-id"
+          title="Mint submission form"
+          loading="lazy"
+        ></iframe>
       </div>
-      <p class="form-note">↑ swap in your Airtable share link before publishing</p>
+      <p class="form-note">↑ replace the Fillout form URL with your live form before publishing</p>
     </div>
   </section>
 </div>
