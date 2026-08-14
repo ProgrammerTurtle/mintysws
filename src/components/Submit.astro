@@ -1,6 +1,5 @@
 ---
 import Section from './Section.astro';
-import Eyebrow from './Eyebrow.astro';
 
 // Replace with the live Fillout form URL before publishing.
 const FORM_URL = 'https://form.fillout.com/t/your-fillout-form-id';
@@ -9,10 +8,9 @@ const isPlaceholderForm = FORM_URL.includes('your-fillout-form-id');
 
 <Section id="submit" labelledby="submit-title">
   <div class="mx-auto max-w-3xl text-center">
-    <Eyebrow class="justify-center">Ready?</Eyebrow>
     <h2
       id="submit-title"
-      class="neon mt-6 font-display text-2xl leading-[1.25] text-balance uppercase [--tube:var(--color-mint)] sm:text-3xl"
+      class="neon font-display text-3xl leading-[1.2] text-balance uppercase [--tube:var(--color-mint)] sm:text-4xl lg:text-5xl"
     >
       Submit your project
     </h2>
@@ -28,12 +26,15 @@ const isPlaceholderForm = FORM_URL.includes('your-fillout-form-id');
     </p>
   </div>
 
+  {/* The marquee runs around the one thing on the page you are meant to act
+      on. Same bulb device as the hero badge, turned up from an aside to the
+      frame of the conversion itself. Vertical padding clears the lamps. */}
   <div
-    class="edge-drawn mt-12 -rotate-[0.4deg] border-2 border-mint/35 bg-linear-160 from-mint/8 to-transparent p-4 shadow-[0_0_60px_color-mix(in_oklab,var(--color-mint)_18%,transparent)] sm:p-5"
+    class="marquee-bulbs mt-14 -rotate-1 border-x-2 border-amber/45 px-4 py-7 shadow-paste-lg sm:px-6 sm:py-9"
   >
     {
       isPlaceholderForm ? (
-        <div class="edge-drawn-alt grid min-h-[26rem] place-items-center border-2 border-dashed border-phosphor/20 p-8 text-center">
+        <div class="edge-drawn-alt grid min-h-[26rem] place-items-center border-2 border-dashed border-phosphor/20 px-panel py-8 text-center">
           <div>
             <p class="font-display text-base leading-[1.35] text-amber uppercase">
               Form not connected
@@ -50,7 +51,7 @@ const isPlaceholderForm = FORM_URL.includes('your-fillout-form-id');
           src={FORM_URL}
           title="Mint submission form"
           loading="lazy"
-          class="h-[32rem] w-full border-0 bg-screen"
+          class="h-[32rem] w-full border-2 border-phosphor/15 bg-screen"
         />
       )
     }

@@ -1,12 +1,13 @@
 ---
 import Section from './Section.astro';
-import Eyebrow from './Eyebrow.astro';
 
+// The exchange, made structural. In the hero the red plate is where Mint's
+// offer lives, so it carries Mint's side here too; the builder's side stays
+// plain paper. Strip the copy out and the skeleton still reads as a trade:
+// paper on the left, plate on the right, a swap mark in the seam between them.
 const sides = [
   {
     label: 'You provide',
-    tilt: '-rotate-1',
-    edge: 'edge-drawn',
     items: [
       'A hardware project that fits inside an Altoids tin',
       'A GitHub journal of the design process',
@@ -14,61 +15,94 @@ const sides = [
   },
   {
     label: 'We provide',
-    tilt: 'rotate-1',
-    edge: 'edge-drawn-alt',
     items: ['An Altoids tin to build inside', 'A $75 grant for parts'],
   },
 ] as const;
 ---
 
-<Section id="deal" labelledby="deal-title" class="relative">
-  <Eyebrow>Our structure</Eyebrow>
+<Section id="deal" labelledby="deal-title">
   <h2
     id="deal-title"
-    class="mt-6 max-w-[24ch] font-display text-2xl leading-[1.25] text-balance uppercase sm:text-3xl"
+    class="max-w-[24ch] font-display text-3xl leading-[1.2] text-balance uppercase sm:text-4xl lg:text-5xl"
   >
     <span class="text-phosphor text-glow">You ship,</span>
     <span class="neon [--tube:var(--color-signal)]">we ship.</span>
   </h2>
 
-  {/* Two hand-cut cards pinned up crooked, not a two-column grid */}
-  <dl class="mt-14 grid gap-10 md:grid-cols-2 md:gap-14">
-    {
-      sides.map((side, sideIndex) => (
-        <div
-          class:list={[
-            side.edge,
-            side.tilt,
-            'border-2 p-8 sm:p-10',
-            sideIndex === 1
-              ? 'border-mint/45 bg-linear-160 from-mint/10 to-transparent shadow-[0_0_50px_color-mix(in_oklab,var(--color-mint)_18%,transparent)]'
-              : 'border-phosphor/25 bg-linear-160 from-phosphor/6 to-transparent',
-          ]}
+  <div class="relative mt-14">
+    <dl class="grid gap-10 md:grid-cols-2 md:gap-x-col-lg">
+      {/* The builder's side: ink on paper, pinned up crooked */}
+      <div
+        class="edge-drawn -rotate-1 border-2 border-phosphor/25 bg-linear-160 from-phosphor/6 to-transparent px-panel py-10 sm:px-panel-sm sm:py-12"
+      >
+        <dt
+          class="font-display text-xl leading-[1.3] text-phosphor uppercase sm:text-2xl"
         >
-          <dt
-            class:list={[
-              'font-display text-base leading-[1.35] uppercase',
-              sideIndex === 1
-                ? 'neon [--tube:var(--color-mint)]'
-                : 'text-phosphor text-glow-sm',
-            ]}
-          >
-            {side.label}
-          </dt>
-          <dd class="mt-6">
-            <ul role="list" class="space-y-4">
-              {side.items.map((item) => (
-                <li class="flex gap-3 text-base text-pretty text-phosphor sm:text-sm">
-                  <span aria-hidden="true" class="text-signal text-glow-sm">
+          {sides[0].label}
+        </dt>
+        <dd class="mt-7">
+          <ul role="list" class="space-y-5">
+            {
+              sides[0].items.map((item) => (
+                <li class="flex gap-3.5 text-base text-pretty text-phosphor">
+                  <span aria-hidden="true" class="text-signal">
                     ▸
                   </span>
                   {item}
                 </li>
-              ))}
-            </ul>
-          </dd>
-        </div>
-      ))
-    }
-  </dl>
+              ))
+            }
+          </ul>
+        </dd>
+      </div>
+
+      {/* Mint's side: the hero's plate, tilted against the paper */}
+      <div
+        class="ad-flag rotate-1 bg-linear-135 from-signal via-signal to-[color-mix(in_oklab,var(--color-signal)_72%,black)] py-10 pr-6 pl-10 shadow-paste-lg sm:py-12 sm:pl-14"
+      >
+        <dt
+          class="font-display text-xl leading-[1.3] text-knockout uppercase sm:text-2xl"
+        >
+          {sides[1].label}
+        </dt>
+        <dd class="mt-7">
+          <ul role="list" class="space-y-5">
+            {
+              sides[1].items.map((item) => (
+                <li class="flex gap-3.5 text-base text-pretty text-knockout">
+                  <span aria-hidden="true" class="text-knockout/70">
+                    ▸
+                  </span>
+                  {item}
+                </li>
+              ))
+            }
+          </ul>
+        </dd>
+      </div>
+    </dl>
+
+    {/* The swap mark sits in the seam between the two panels. Drawn, not a
+        glyph, at the same stroke weight as the icons in "what fits".
+        Two columns only: stacked, the panels are unequal heights, so the
+        container's midpoint is not the gap and the mark lands on a card. The
+        plate still carries the contrast on mobile. */}
+    <div
+      class="absolute top-1/2 left-1/2 grid size-14 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border-2 border-phosphor/30 bg-screen text-phosphor shadow-paste max-md:hidden"
+      aria-hidden="true"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="size-6"
+      >
+        <path d="M4 9h13M14 6l3 3-3 3"></path>
+        <path d="M20 15H7M10 18l-3-3 3-3"></path>
+      </svg>
+    </div>
+  </div>
 </Section>

@@ -1,6 +1,7 @@
 ---
 import CrtOverlay from '../components/CrtOverlay.astro';
 import { withBase } from '../lib/url';
+import { THEME_COLOR } from '../lib/theme';
 import '../styles/global.css';
 
 interface Props {
@@ -23,12 +24,12 @@ const ogImage = new URL(withBase('altoids-tin-trimmed.png'), Astro.site);
 >
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content={description} />
     <meta
-      name="theme-color"
-      content={theme === 'light' ? '#c9a882' : '#2a2118'}
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content={THEME_COLOR[theme]} />
     <link rel="canonical" href={canonical} />
 
     <meta property="og:type" content="website" />
@@ -41,7 +42,7 @@ const ogImage = new URL(withBase('altoids-tin-trimmed.png'), Astro.site);
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Bungee+Inline&family=IBM+Plex+Mono:wght@400;500;600;700&family=Yellowtail&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bungee+Inline&family=IBM+Plex+Mono:wght@400;600;700&family=Yellowtail&display=swap"
       rel="stylesheet"
     />
 
@@ -49,11 +50,11 @@ const ogImage = new URL(withBase('altoids-tin-trimmed.png'), Astro.site);
   </head>
 
   <body
-    class="isolate min-h-dvh bg-screen p-2 font-sans text-phosphor antialiased sm:p-3"
+    class="screen-pad isolate min-h-dvh bg-screen font-sans text-phosphor antialiased"
   >
     <a
       href="#main"
-      class="sr-only rounded-none bg-mint px-4 py-2 text-sm font-semibold text-screen focus:not-sr-only focus:fixed focus:top-6 focus:left-6 focus:z-100"
+      class="sr-only rounded-none bg-mint px-4 py-2 text-sm font-semibold text-screen focus:not-sr-only focus:fixed focus:top-6 focus:left-6 focus:z-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-phosphor"
     >
       Skip to content
     </a>

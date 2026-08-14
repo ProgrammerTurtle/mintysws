@@ -6,20 +6,20 @@
 
 <div class="pointer-events-none fixed inset-0 z-50" aria-hidden="true">
   {/* Vignette + glass glare */}
-  <div class="crt-vignette absolute inset-2 rounded-(--radius-screen) sm:inset-3"></div>
+  <div class="crt-vignette screen-frame rounded-(--radius-screen)"></div>
 
   {/* Scanlines + aperture grille */}
-  <div class="crt-raster absolute inset-2 rounded-(--radius-screen) opacity-70 sm:inset-3"></div>
+  <div class="crt-raster screen-frame rounded-(--radius-screen) opacity-70"></div>
 
   {/* Film grain — kills the flat, rendered look */}
   <div
-    class="grain absolute inset-2 rounded-(--radius-screen) opacity-[0.16] mix-blend-overlay sm:inset-3"
+    class="grain screen-frame rounded-(--radius-screen) opacity-[0.16] mix-blend-overlay"
   >
   </div>
 
   {/* Cabinet: a huge spread shadow fills everything outside the rounded screen */}
   <div
-    class="absolute inset-2 rounded-(--radius-screen) shadow-[0_0_0_100vmax_var(--color-cabinet),inset_0_0_60px_rgba(0,0,0,0.75)] sm:inset-3"
+    class="screen-frame rounded-(--radius-screen) shadow-[0_0_0_100vmax_var(--color-cabinet),inset_0_0_60px_color-mix(in_oklab,var(--color-shade)_75%,transparent)]"
   >
   </div>
 

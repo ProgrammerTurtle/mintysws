@@ -30,6 +30,10 @@
      and must stay light in BOTH themes, so it is not tied to the ink colour. */
   --color-knockout: oklch(0.97 0.015 85);
 
+  /* Cast shadow. Dark in both themes: a shadow is absence of light, so it can
+     never follow the ink colour, which inverts between them. */
+  --color-shade: oklch(0.14 0.016 55);
+
   /* Amber as it appears ON the red plate. The plate is red in both themes, so
      this must stay bright — the regular --color-amber is pulled dark in light
      mode to survive cream stock, which turns muddy against red. */
@@ -37,6 +41,21 @@
 
   /* Corner radius of the tube itself — consumed by CrtOverlay. */
   --radius-screen: 1.75rem;
+
+  /* Structural spacing is px on purpose, and must stay px.
+     These are horizontal chrome — page gutters, column gaps, panel padding.
+     In rem they scale with the user's text size, so at 200% zoom the gutters
+     double and eat the line instead of letting the text reflow (WCAG 1.4.4):
+     measured, a deal card's content collapsed from 213px to 53px.
+     Vertical rhythm stays in rem — it has no overflow axis and should breathe
+     as type grows. */
+  --spacing-gutter: 20px;
+  --spacing-gutter-sm: 40px;
+  --spacing-gutter-lg: 64px;
+  --spacing-panel: 32px;
+  --spacing-panel-sm: 40px;
+  --spacing-col: 48px;
+  --spacing-col-lg: 56px;
 
   --animate-marquee: marquee 38s linear infinite;
 
@@ -51,6 +70,18 @@
 }
 
 @layer base {
+  :root {
+    /* Gap between the viewport edge and the tube. Drives screen-pad,
+       screen-frame and screen-top together. */
+    --screen-inset: 8px;
+  }
+
+  @media (width >= 40rem) {
+    :root {
+      --screen-inset: 12px;
+    }
+  }
+
   html {
     scroll-behavior: smooth;
   }
@@ -58,7 +89,10 @@
   /* The crawl is the only animation left, and it is pure ambience, so it
      stops outright when reduced motion is requested. `animation: none` rather
      than a near-zero duration, so it parks at the start instead of snapping
-     to the keyframe end mid-scroll. */
+     to the keyframe end mid-scroll.
+     Transitions are deliberately NOT killed here: a blanket 0.01ms override
+     destroys state feedback — hover and focus response users still need — and
+     reduced motion asks for less movement, not less legibility. */
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
@@ -68,8 +102,20 @@
     *::before,
     *::after {
       animation: none !important;
-      transition-duration: 0.01ms !important;
     }
+  }
+
+  /* Surfaces the browser draws still belong to the design. */
+  ::selection {
+    background-color: color-mix(in oklab, var(--color-signal) 90%, transparent);
+    color: var(--color-knockout);
+  }
+
+  :root {
+    caret-color: var(--color-signal);
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in oklab, var(--color-phosphor) 40%, transparent)
+      var(--color-screen-2);
   }
 
   :target {
@@ -85,15 +131,41 @@
   margin-inline: auto;
   width: 100%;
   max-width: 110rem;
-  padding-inline: --spacing(5);
+  padding-inline: var(--spacing-gutter);
 
   @variant sm {
-    padding-inline: --spacing(10);
+    padding-inline: var(--spacing-gutter-sm);
   }
 
   @variant lg {
-    padding-inline: --spacing(16);
+    padding-inline: var(--spacing-gutter-lg);
   }
+}
+
+/* ---------------------------------------------------------------------------
+   The screen edge. One inset value drives the body padding, all five bezel
+   layers and the sticky header offset, so they can never drift apart. Each
+   side takes the larger of that inset and the device's safe-area inset, so
+   content clears a notch or home indicator instead of hiding under it.
+--------------------------------------------------------------------------- */
+
+@utility screen-pad {
+  padding-block: max(var(--screen-inset), env(safe-area-inset-top))
+    max(var(--screen-inset), env(safe-area-inset-bottom));
+  padding-inline: max(var(--screen-inset), env(safe-area-inset-left))
+    max(var(--screen-inset), env(safe-area-inset-right));
+}
+
+@utility screen-frame {
+  position: absolute;
+  top: max(var(--screen-inset), env(safe-area-inset-top));
+  bottom: max(var(--screen-inset), env(safe-area-inset-bottom));
+  left: max(var(--screen-inset), env(safe-area-inset-left));
+  right: max(var(--screen-inset), env(safe-area-inset-right));
+}
+
+@utility screen-top {
+  top: max(var(--screen-inset), env(safe-area-inset-top));
 }
 
 /* ---------------------------------------------------------------------------
@@ -113,11 +185,6 @@
     0 0 95px color-mix(in oklab, var(--tube) 25%, transparent);
 }
 
-/* Unlit tube — glass with no gas in it, for struck-through / superseded text. */
-@utility neon-dead {
-  color: color-mix(in oklab, var(--color-phosphor) 26%, transparent);
-  text-shadow: none;
-}
 
 /* A lit tube bent into a rule. */
 @utility neon-rule {
@@ -203,8 +270,17 @@
   }
 }
 
-@utility shadow-print {
-  box-shadow: 6px 6px 0 0 var(--color-screen-2);
+/* Paste-up depth. Pieces laid on a page sit slightly above it, so they cast a
+   real shadow with both offset and blur. Replaces the zero-offset coloured
+   halos that made sense as neon bloom on a dark tube and read as fuzz on
+   paper — and the hard 6px block shadow, which belongs to a neobrutalist
+   world this one never chose. */
+@utility shadow-paste {
+  box-shadow: 2px 5px 14px -3px color-mix(in oklab, var(--color-shade) 30%, transparent);
+}
+
+@utility shadow-paste-lg {
+  box-shadow: 4px 10px 28px -6px color-mix(in oklab, var(--color-shade) 34%, transparent);
 }
 
 /* ---------------------------------------------------------------------------
@@ -284,10 +360,6 @@
     color: inherit;
   }
 
-  /* An unlit tube on paper is just a lighter ink. */
-  .neon-dead {
-    color: color-mix(in oklab, var(--color-phosphor) 45%, transparent);
-  }
 
   .neon-rule {
     background-image: none;

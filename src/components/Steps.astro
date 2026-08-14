@@ -1,59 +1,67 @@
 ---
 import Section from './Section.astro';
-import Eyebrow from './Eyebrow.astro';
 
-// No panels here at all — just big lit numerals and a tube rule under each.
-// Boxing these was the most obviously machine-made thing on the page.
+// No panels here at all — the numerals are the structure. Each step is a lit
+// number over a full-width tube rule, so the four rules read as one track the
+// sequence marches along. Strip the copy and the skeleton still says "four
+// ordered stages"; the numbers are earned because the order is the content.
+//
+// Deliberately aligned, not staggered: the deal and the submit panel both
+// carry tilt and paste-up, so a precise marching rhythm is the shift in pace
+// this section needs — and a process should feel ordered, not scattered.
 const steps = [
   {
     title: 'Planning',
     copy: 'Your build envelope and budget are fixed: 3.75" × 2.375" × 0.8" and $75. Everything else is up to you.',
     tube: 'var(--color-signal)',
-    drop: '',
   },
   {
     title: 'Design',
     copy: 'Sketch it, prototype it, design it.',
     tube: 'var(--color-amber)',
-    drop: 'lg:mt-10',
   },
   {
     title: 'Journal on GitHub',
     copy: 'Log your progress in a JOURNAL.md file in your repository. No timelapses required.',
     tube: 'var(--color-mint)',
-    drop: 'lg:mt-4',
   },
   {
     title: 'Ship it',
-    copy: "Submit when it's done. We send the $75 grant and your Altoids tin.",
+    copy: "Submit your finished project and journal when it's done.",
     tube: 'var(--color-signal)',
-    drop: 'lg:mt-16',
   },
 ];
 ---
 
-<Section id="how" labelledby="how-title" class="relative">
-  <Eyebrow tone="amber">Process</Eyebrow>
+<Section id="how" labelledby="how-title">
   <h2
     id="how-title"
-    class="mt-6 max-w-[24ch] font-display text-2xl leading-[1.25] text-balance uppercase sm:text-3xl"
+    class="max-w-[24ch] font-display text-3xl leading-[1.2] text-balance uppercase sm:text-4xl lg:text-5xl"
   >
     <span class="text-phosphor text-glow">How it</span>
     <span class="neon [--tube:var(--color-amber)]">works</span>
   </h2>
 
-  <ol role="list" class="mt-14 grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
+  <ol role="list" class="mt-14 grid gap-12 sm:grid-cols-2 sm:gap-x-col lg:grid-cols-4">
     {
       steps.map((step, index) => (
-        <li class={step.drop} style={`--tube: ${step.tube}`}>
+        <li>
+          {/* --tube must sit on the element itself: `.neon` and `.neon-rule`
+              each declare their own default, which beats an inherited value
+              from the <li>. Inline style outranks the class declaration. */}
           <span
-            class="neon block font-display text-4xl leading-none tabular-nums"
+            class="neon block font-display text-6xl leading-none tabular-nums sm:text-7xl"
+            style={`--tube: ${step.tube}`}
             aria-hidden="true"
           >
             {String(index + 1).padStart(2, '0')}
           </span>
-          <span class="neon-rule mt-4 block h-0.5 w-24" aria-hidden="true" />
-          <h3 class="mt-5 font-display text-base leading-[1.35] text-phosphor uppercase">
+          <span
+            class="neon-rule mt-6 block h-1 w-full"
+            style={`--tube: ${step.tube}`}
+            aria-hidden="true"
+          />
+          <h3 class="mt-6 font-display text-base leading-[1.35] text-phosphor uppercase">
             {step.title}
           </h3>
           <p class="mt-3 text-base text-pretty text-phosphor-dim sm:text-sm">
