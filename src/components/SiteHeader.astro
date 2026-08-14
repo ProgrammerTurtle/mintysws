@@ -16,17 +16,28 @@ const links = [
   <div
     class="page-container flex items-center justify-between gap-4 py-3"
   >
-    <a
-      href={base}
-      aria-label="Homepage"
-      class="flex items-center gap-3 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-mint"
-    >
-      <span
-        class="grid size-7 place-items-center bg-signal font-display text-sm leading-none text-phosphor"
-        aria-hidden="true">M</span
+    <div class="flex items-center gap-4">
+      <a
+        href={base}
+        aria-label="Homepage"
+        class="flex items-center gap-3 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-mint"
       >
-      <span class="font-display text-lg text-glow-sm">MINT</span>
-    </a>
+        <span
+          class="grid size-7 place-items-center bg-signal font-display text-sm leading-none text-phosphor"
+          aria-hidden="true">M</span
+        >
+        <span class="font-display text-lg text-glow-sm">MINT</span>
+      </a>
+
+      {/* Eligibility as a broadcast ident beside the wordmark. Below lg the
+          header is too tight for it, so the hero carries it instead — the two
+          are a responsive pair, never both visible at once. */}
+      <p
+        class="border-l-2 border-phosphor/20 pl-4 text-xs whitespace-nowrap text-phosphor-dim max-lg:hidden"
+      >
+        For Hack Club teens aged <span class="text-amber">13&ndash;18</span>.
+      </p>
+    </div>
 
     <div class="flex items-center gap-2 sm:gap-6">
       <nav aria-label="Primary" class="max-sm:hidden">
