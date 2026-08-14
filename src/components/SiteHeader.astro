@@ -29,13 +29,14 @@ const links = [
         <span class="font-display text-lg text-glow-sm">MINT</span>
       </a>
 
-      {/* Eligibility as a broadcast ident beside the wordmark. Below lg the
-          header is too tight for it, so the hero carries it instead — the two
-          are a responsive pair, never both visible at once. */}
+      {/* Eligibility as a broadcast ident beside the wordmark. Measured: the
+          bar needs 405px at 375px wide against 319px available, so it cannot
+          share a row with the menu and Submit button on phones. Shown from lg
+          up; the hero carries it below that. Exactly one is ever rendered. */}
       <p
         class="border-l-2 border-phosphor/20 pl-4 text-xs whitespace-nowrap text-phosphor-dim max-lg:hidden"
       >
-        For Hack Club teens aged <span class="text-amber">13&ndash;18</span>.
+        For teens <span class="text-amber">13&ndash;18</span>.
       </p>
     </div>
 
