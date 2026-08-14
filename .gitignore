@@ -17,6 +17,9 @@ pnpm-debug.log*
 Thumbs.db
 .vscode/
 
+# local dev server config (contains machine-specific absolute paths)
+.claude/
+
 # environment files
 .env
 .env.*

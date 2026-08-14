@@ -1,0 +1,74 @@
+---
+import Section from './Section.astro';
+import Eyebrow from './Eyebrow.astro';
+
+const sides = [
+  {
+    label: 'You provide',
+    tilt: '-rotate-1',
+    edge: 'edge-drawn',
+    items: [
+      'A hardware project that fits inside an Altoids tin',
+      'A GitHub journal of the design process',
+    ],
+  },
+  {
+    label: 'We provide',
+    tilt: 'rotate-1',
+    edge: 'edge-drawn-alt',
+    items: ['An Altoids tin to build inside', 'A $75 grant for parts'],
+  },
+] as const;
+---
+
+<Section id="deal" labelledby="deal-title" class="relative">
+  <Eyebrow>Our structure</Eyebrow>
+  <h2
+    id="deal-title"
+    class="mt-5 max-w-[24ch] font-display text-4xl tracking-tight text-balance uppercase sm:text-5xl"
+  >
+    <span class="text-phosphor text-glow">You ship,</span>
+    <span class="neon [--tube:var(--color-signal)]">we ship.</span>
+  </h2>
+
+  {/* Two hand-cut cards pinned up crooked, not a two-column grid */}
+  <dl class="mt-14 grid gap-10 md:grid-cols-2 md:gap-14">
+    {
+      sides.map((side, sideIndex) => (
+        <div
+          class:list={[
+            side.edge,
+            side.tilt,
+            'border-2 p-8 sm:p-10',
+            sideIndex === 1
+              ? 'border-mint/45 bg-linear-160 from-mint/10 to-transparent shadow-[0_0_50px_color-mix(in_oklab,var(--color-mint)_18%,transparent)]'
+              : 'border-phosphor/25 bg-linear-160 from-phosphor/6 to-transparent',
+          ]}
+        >
+          <dt
+            class:list={[
+              'font-display text-2xl tracking-tight uppercase',
+              sideIndex === 1
+                ? 'neon [--tube:var(--color-mint)]'
+                : 'text-phosphor text-glow-sm',
+            ]}
+          >
+            {side.label}
+          </dt>
+          <dd class="mt-6">
+            <ul role="list" class="space-y-4">
+              {side.items.map((item) => (
+                <li class="flex gap-3 text-base text-pretty text-phosphor sm:text-sm">
+                  <span aria-hidden="true" class="text-signal text-glow-sm">
+                    ▸
+                  </span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </dd>
+        </div>
+      ))
+    }
+  </dl>
+</Section>

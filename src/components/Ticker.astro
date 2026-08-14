@@ -1,0 +1,44 @@
+---
+// Broadcast lower-third.
+//
+// The track is deliberately over-long: a single copy must be wider than the
+// widest viewport, or the loop shows empty space before it restarts. Doubling
+// the item list inside each copy guarantees that at any window size. The
+// second copy exists only to make the wrap seamless, so it is hidden from
+// assistive tech — the first copy carries the real content.
+const items = [
+  'Free Altoids tin',
+  '$75 for parts',
+  'No timelapses required',
+  'Beginners welcome',
+  '3.75 × 2.375 × 0.8 inches',
+  'Ship it in a weekend',
+];
+
+const track = [...items, ...items];
+---
+
+<div
+  class="overflow-hidden border-y-2 border-signal/40 bg-linear-to-b from-signal/18 via-signal/5 to-signal/18 py-3 shadow-[inset_0_0_40px_color-mix(in_oklab,var(--color-signal)_22%,transparent)]"
+>
+  <div class="flex w-max motion-safe:animate-marquee">
+    {
+      [false, true].map((isDuplicate) => (
+        <ul
+          role="list"
+          class="flex shrink-0 items-center text-[0.8125rem] font-bold tracking-widest text-amber uppercase text-glow"
+          aria-hidden={isDuplicate ? 'true' : undefined}
+        >
+          {track.map((item) => (
+            <li class="flex items-center gap-6 px-6">
+              <span aria-hidden="true" class="text-signal">
+                ★
+              </span>
+              {item}
+            </li>
+          ))}
+        </ul>
+      ))
+    }
+  </div>
+</div>

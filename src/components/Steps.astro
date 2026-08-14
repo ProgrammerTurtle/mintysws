@@ -1,0 +1,66 @@
+---
+import Section from './Section.astro';
+import Eyebrow from './Eyebrow.astro';
+
+// No panels here at all — just big lit numerals and a tube rule under each.
+// Boxing these was the most obviously machine-made thing on the page.
+const steps = [
+  {
+    title: 'Planning',
+    copy: 'Your build envelope and budget are fixed: 3.75" × 2.375" × 0.8" and $75. Everything else is up to you.',
+    tube: 'var(--color-signal)',
+    drop: '',
+  },
+  {
+    title: 'Design',
+    copy: 'Sketch it, prototype it, design it.',
+    tube: 'var(--color-amber)',
+    drop: 'lg:mt-10',
+  },
+  {
+    title: 'Journal on GitHub',
+    copy: 'Log your progress in a JOURNAL.md file in your repository. No timelapses required.',
+    tube: 'var(--color-mint)',
+    drop: 'lg:mt-4',
+  },
+  {
+    title: 'Ship it',
+    copy: "Submit when it's done. We send the $75 grant and your Altoids tin.",
+    tube: 'var(--color-signal)',
+    drop: 'lg:mt-16',
+  },
+];
+---
+
+<Section id="how" labelledby="how-title" class="relative">
+  <Eyebrow tone="amber">Process</Eyebrow>
+  <h2
+    id="how-title"
+    class="mt-5 max-w-[24ch] font-display text-4xl tracking-tight text-balance uppercase sm:text-5xl"
+  >
+    <span class="text-phosphor text-glow">How it</span>
+    <span class="neon [--tube:var(--color-amber)]">works</span>
+  </h2>
+
+  <ol role="list" class="mt-14 grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
+    {
+      steps.map((step, index) => (
+        <li class={step.drop} style={`--tube: ${step.tube}`}>
+          <span
+            class="neon block font-display text-6xl tabular-nums"
+            aria-hidden="true"
+          >
+            {String(index + 1).padStart(2, '0')}
+          </span>
+          <span class="neon-rule mt-4 block h-0.5 w-24" aria-hidden="true" />
+          <h3 class="mt-5 font-display text-2xl tracking-tight text-phosphor uppercase">
+            {step.title}
+          </h3>
+          <p class="mt-3 text-base text-pretty text-phosphor-dim sm:text-sm">
+            {step.copy}
+          </p>
+        </li>
+      ))
+    }
+  </ol>
+</Section>

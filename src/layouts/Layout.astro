@@ -1,0 +1,56 @@
+---
+import CrtOverlay from '../components/CrtOverlay.astro';
+import { withBase } from '../lib/url';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(withBase('altoids-tin-trimmed.png'), Astro.site);
+---
+
+<!doctype html>
+<html lang="en" class="scheme-only-dark bg-cabinet">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#2a2118" />
+    <link rel="canonical" href={canonical} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500;600;700&family=Yellowtail&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>{title}</title>
+  </head>
+
+  <body
+    class="isolate min-h-dvh bg-screen p-2 font-sans text-phosphor antialiased sm:p-3"
+  >
+    <a
+      href="#main"
+      class="sr-only rounded-none bg-mint px-4 py-2 text-sm font-semibold text-screen focus:not-sr-only focus:fixed focus:top-6 focus:left-6 focus:z-100"
+    >
+      Skip to content
+    </a>
+
+    <CrtOverlay />
+
+    <slot />
+  </body>
+</html>

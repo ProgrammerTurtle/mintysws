@@ -1,0 +1,85 @@
+---
+import { withBase } from '../lib/url';
+
+const base = withBase('/');
+
+const links = [
+  { href: '#deal', label: 'The deal' },
+  { href: '#fits', label: 'What fits' },
+  { href: '#how', label: 'How it works' },
+];
+---
+
+<header
+  class="sticky top-2 z-40 border-b-2 border-signal/60 bg-screen/90 backdrop-blur-sm sm:top-3"
+>
+  <div
+    class="page-container flex items-center justify-between gap-4 py-3"
+  >
+    <a
+      href={base}
+      aria-label="Homepage"
+      class="flex items-center gap-3 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-mint"
+    >
+      <span
+        class="grid size-7 place-items-center bg-signal font-display text-lg leading-none text-phosphor"
+        aria-hidden="true">M</span
+      >
+      <span class="font-display text-2xl tracking-wide text-glow-sm">MINT</span>
+    </a>
+
+    <div class="flex items-center gap-2 sm:gap-6">
+      <nav aria-label="Primary" class="max-sm:hidden">
+        <ul role="list" class="flex items-center gap-6">
+          {
+            links.map((link) => (
+              <li class="text-xs font-medium tracking-widest uppercase">
+                <a
+                  href={link.href}
+                  class="border-b-2 border-transparent pb-0.5 text-phosphor-dim hover:border-mint hover:text-phosphor focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-mint"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      {/* Compact JS-free disclosure below the sm breakpoint */}
+      <details class="relative sm:hidden">
+        <summary
+          class="flex cursor-pointer list-none items-center gap-2 border-2 border-phosphor/30 px-3 py-2 text-xs font-semibold tracking-widest text-phosphor-dim uppercase focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint"
+        >
+          Menu
+        </summary>
+        <nav aria-label="Primary" class="absolute right-0 z-10 mt-2 w-48">
+          <ul
+            role="list"
+            class="border-2 border-signal/60 bg-screen-2 p-2 shadow-print"
+          >
+            {
+              links.map((link) => (
+                <li>
+                  <a
+                    href={link.href}
+                    class="block px-3 py-2.5 text-base font-medium text-phosphor-dim hover:text-mint focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-mint"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+      </details>
+
+      <a
+        href="#submit"
+        class="border-2 border-mint px-3 py-2 text-xs font-semibold tracking-widest text-mint uppercase hover:bg-mint/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint"
+      >
+        Submit
+      </a>
+    </div>
+  </div>
+</header>

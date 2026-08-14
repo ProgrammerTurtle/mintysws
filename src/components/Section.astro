@@ -1,0 +1,18 @@
+---
+// Two-element section pattern: the outer element owns background and vertical
+// rhythm, the inner element owns max-width, centering and gutters. Every
+// section on the page uses this so content edges line up while scrolling.
+interface Props {
+  id?: string;
+  class?: string;
+  labelledby?: string;
+}
+
+const { id, class: className = '', labelledby } = Astro.props;
+---
+
+<section id={id} aria-labelledby={labelledby} class:list={['py-16 sm:py-24', className]}>
+  <div class="page-container">
+    <slot />
+  </div>
+</section>

@@ -1,0 +1,124 @@
+---
+import Section from './Section.astro';
+import Eyebrow from './Eyebrow.astro';
+
+// Each card gets its own tilt, drop and edge so the row reads as three things
+// pinned to a wall rather than three cells of a grid.
+const examples = [
+  {
+    href: 'https://www.instructables.com/Pocket-Sized-Synthesizer/',
+    title: 'Micro synth',
+    copy: 'A pocket instrument — oscillators, control knobs, and even a speaker.',
+    icon: 'synth',
+    tilt: '-rotate-2',
+    drop: 'lg:mt-8',
+    edge: 'edge-drawn',
+    tube: 'var(--color-mint)',
+  },
+  {
+    href: 'https://jackw01.github.io/pi-tin/',
+    title: 'Pocket game',
+    copy: 'A tiny screen and a couple of buttons is all it takes for a game you can carry anywhere.',
+    icon: 'game',
+    tilt: 'rotate-1',
+    drop: '',
+    edge: 'edge-drawn-alt',
+    tube: 'var(--color-amber)',
+  },
+  {
+    href: 'https://hackaday.io/project/205598-altoids-tin-mini-cyberdeck',
+    title: 'Mini cyberdeck',
+    copy: 'A portable computing rig for hacking, tinkering, and getting work done on the go.',
+    icon: 'deck',
+    tilt: '-rotate-1',
+    drop: 'lg:mt-14',
+    edge: 'edge-drawn',
+    tube: 'var(--color-signal)',
+  },
+] as const;
+---
+
+<Section id="fits" labelledby="fits-title" class="relative">
+  <Eyebrow tone="mint">Scope</Eyebrow>
+  <h2
+    id="fits-title"
+    class="mt-5 max-w-[24ch] font-display text-4xl tracking-tight text-balance uppercase sm:text-5xl"
+  >
+    <span class="text-phosphor text-glow">If it fits in the tin,</span>
+    <span class="neon [--tube:var(--color-mint)]">it counts.</span>
+  </h2>
+  <p class="mt-6 max-w-[56ch] text-lg text-pretty text-phosphor-dim sm:text-base">
+    Take a look at what others have pulled off in a tin.
+  </p>
+
+  <ul role="list" class="mt-14 grid gap-12 sm:grid-cols-2 lg:grid-cols-3">
+    {
+      examples.map((example) => (
+        <li class={example.drop}>
+          <a
+            href={example.href}
+            style={`--tube: ${example.tube}`}
+            class:list={[
+              example.edge,
+              example.tilt,
+              'group flex h-full flex-col border-2 border-phosphor/20 bg-linear-160 from-phosphor/6 to-transparent p-8 hover:border-(--tube) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--tube)',
+            ]}
+          >
+            <span
+              class="text-(--tube) drop-shadow-[0_0_14px_var(--tube)]"
+              aria-hidden="true"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="size-9"
+              >
+                {example.icon === 'synth' && (
+                  <>
+                    <rect x="3" y="9" width="18" height="8" rx="1.5" />
+                    <path d="M6 9V6a2 2 0 0 1 2-2h2M6 17v3M18 17v3" />
+                    <circle cx="9" cy="13" r="1.5" />
+                    <circle cx="13.5" cy="13" r="1.5" />
+                    <circle cx="18" cy="13" r="1.5" />
+                  </>
+                )}
+                {example.icon === 'game' && (
+                  <>
+                    <rect x="4" y="3" width="16" height="18" rx="2" />
+                    <rect x="7" y="6" width="10" height="7" rx="1" />
+                    <circle cx="9" cy="17" r="1.2" />
+                    <circle cx="12" cy="17" r="1.2" />
+                    <circle cx="15" cy="17" r="1.2" />
+                  </>
+                )}
+                {example.icon === 'deck' && (
+                  <>
+                    <rect x="3" y="6" width="18" height="12" rx="2" />
+                    <path d="M7 10v4M11 10v4M15 10h3" />
+                  </>
+                )}
+              </svg>
+            </span>
+
+            <h3 class="mt-6 font-display text-2xl tracking-tight text-phosphor uppercase group-hover:text-(--tube)">
+              {example.title}
+            </h3>
+            <p class="mt-3 text-base text-pretty text-phosphor-dim sm:text-sm">
+              {example.copy}
+            </p>
+            <span
+              class="mt-6 text-xs font-semibold tracking-widest text-(--tube) uppercase"
+              aria-hidden="true"
+            >
+              View build →
+            </span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</Section>

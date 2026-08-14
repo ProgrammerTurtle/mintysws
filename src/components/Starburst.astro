@@ -1,0 +1,33 @@
+---
+// Classic 20-point ad starburst. Points are generated so the geometry stays
+// exact rather than hand-tweaked.
+interface Props {
+  class?: string;
+  tone?: 'signal' | 'muted';
+}
+
+// The caller owns positioning — the root must not hardcode `relative`, or it
+// conflicts with an `absolute` passed in and the burst drops into normal flow.
+const { class: className = '', tone = 'signal' } = Astro.props;
+
+const POINTS = 20;
+const points = Array.from({ length: POINTS * 2 }, (_, i) => {
+  const radius = i % 2 === 0 ? 50 : 41.5;
+  const angle = (Math.PI * i) / POINTS - Math.PI / 2;
+  return `${(50 + radius * Math.cos(angle)).toFixed(2)},${(50 + radius * Math.sin(angle)).toFixed(2)}`;
+}).join(' ');
+
+const fills = {
+  signal: 'fill-signal stroke-phosphor',
+  muted: 'fill-screen-2 stroke-phosphor/40',
+} as const;
+---
+
+<div class:list={['grid place-items-center', className]}>
+  <svg viewBox="0 0 100 100" class="absolute inset-0 size-full" aria-hidden="true">
+    <polygon points={points} class={fills[tone]} stroke-width="1.25"></polygon>
+  </svg>
+  <div class="relative px-3 text-center leading-none">
+    <slot />
+  </div>
+</div>

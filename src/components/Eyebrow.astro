@@ -1,0 +1,27 @@
+---
+// Broadcast-style slug line. Uppercase is only ever paired with the monospace
+// body face, and always with widened tracking.
+interface Props {
+  class?: string;
+  tone?: 'mint' | 'signal' | 'amber';
+}
+
+const { class: className = '', tone = 'signal' } = Astro.props;
+
+const tones = {
+  mint: 'text-mint',
+  signal: 'text-signal',
+  amber: 'text-amber',
+} as const;
+---
+
+<p
+  class:list={[
+    'flex items-center gap-2.5 text-xs font-semibold tracking-widest uppercase text-glow-sm',
+    tones[tone],
+    className,
+  ]}
+>
+  <span class="h-px w-6 bg-current" aria-hidden="true"></span>
+  <slot />
+</p>

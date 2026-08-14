@@ -1,0 +1,302 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Tokens. A bodega window after dark: cream ink and one red plate, lit by
+   neon tube. Colours are authored in oklch so hue stays even as lightness
+   moves. Mint is the brand tube; signal red is the ad furniture.
+--------------------------------------------------------------------------- */
+@theme {
+  --font-sans: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-display: "Anton", "Arial Narrow", ui-sans-serif, sans-serif;
+  --font-script: "Yellowtail", ui-serif, cursive;
+
+  --color-screen: oklch(0.1 0.008 62);
+  --color-screen-2: oklch(0.16 0.012 62);
+  --color-cabinet: oklch(0.24 0.028 58);
+  --color-phosphor: oklch(0.94 0.023 86);
+  --color-phosphor-dim: oklch(0.73 0.022 86);
+  --color-mint: oklch(0.85 0.15 168);
+  --color-mint-deep: oklch(0.55 0.11 168);
+  --color-signal: oklch(0.64 0.22 28);
+  --color-amber: oklch(0.83 0.15 78);
+
+  /* Corner radius of the tube itself — consumed by CrtOverlay. */
+  --radius-screen: 1.75rem;
+
+  --animate-marquee: marquee 38s linear infinite;
+  --animate-flicker: flicker 5s steps(2, end) infinite;
+  --animate-blink: blink 1.2s steps(2, end) infinite;
+  --animate-buzz: buzz 6s ease-in-out infinite;
+  /* Deliberately co-prime-ish with --animate-buzz: 8.5s against 6s means the
+     tin and the "Now!" sign never settle into a shared rhythm. */
+  --animate-buzz-slow: buzz-slow 8.5s ease-in-out infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes flicker {
+    0%,
+    97%,
+    100% {
+      opacity: 0.035;
+    }
+    98% {
+      opacity: 0.09;
+    }
+  }
+
+  @keyframes blink {
+    0%,
+    50% {
+      opacity: 1;
+    }
+    51%,
+    100% {
+      opacity: 0.15;
+    }
+  }
+
+  /* A tube that never quite settles — the one bulb in the sign that's going. */
+  @keyframes buzz {
+    0%,
+    22%,
+    24%,
+    54%,
+    56%,
+    100% {
+      opacity: 1;
+    }
+    23%,
+    55% {
+      opacity: 0.55;
+    }
+  }
+
+  /* Slower, shallower stutter for the lit product shot. Both this and `buzz`
+     dip well under 3 flashes/second, the WCAG photosensitivity threshold. */
+  @keyframes buzz-slow {
+    0%,
+    40%,
+    43%,
+    77%,
+    80%,
+    100% {
+      opacity: 1;
+    }
+    41.5% {
+      opacity: 0.68;
+    }
+    78.5% {
+      opacity: 0.85;
+    }
+  }
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+    scroll-behavior: smooth;
+  }
+
+  /* Every animation on this page is ambience — tube flicker, neon buzz, the
+     crawl, the blinking channel lamp. None of it carries information, so it
+     all stops outright when reduced motion is requested. `animation: none`
+     rather than a near-zero duration, so each element falls back to its
+     resting style (flicker overlay → invisible, lit elements → full opacity,
+     crawl → parked at the start) instead of snapping to a keyframe end. */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation: none !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  :target {
+    scroll-margin-top: 7rem;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Layout
+--------------------------------------------------------------------------- */
+
+@utility page-container {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 110rem;
+  padding-inline: --spacing(5);
+
+  @variant sm {
+    padding-inline: --spacing(10);
+  }
+
+  @variant lg {
+    padding-inline: --spacing(16);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Neon. `--tube` selects the gas; everything else follows from it, so one
+   utility lights up in any colour: `neon [--tube:var(--color-signal)]`.
+--------------------------------------------------------------------------- */
+
+@utility neon {
+  --tube: var(--color-mint);
+  color: color-mix(in oklab, var(--tube) 22%, white);
+  text-shadow:
+    0 0 1px color-mix(in oklab, white 85%, var(--tube)),
+    0 0 5px color-mix(in oklab, var(--tube) 95%, transparent),
+    0 0 12px color-mix(in oklab, var(--tube) 85%, transparent),
+    0 0 28px color-mix(in oklab, var(--tube) 70%, transparent),
+    0 0 55px color-mix(in oklab, var(--tube) 45%, transparent),
+    0 0 95px color-mix(in oklab, var(--tube) 25%, transparent);
+}
+
+/* Unlit tube — glass with no gas in it, for struck-through / superseded text. */
+@utility neon-dead {
+  color: color-mix(in oklab, var(--color-phosphor) 26%, transparent);
+  text-shadow: none;
+}
+
+/* A lit tube bent into a rule. */
+@utility neon-rule {
+  --tube: var(--color-signal);
+  background-image: linear-gradient(
+    to right,
+    transparent,
+    var(--tube) 12%,
+    color-mix(in oklab, white 55%, var(--tube)) 50%,
+    var(--tube) 88%,
+    transparent
+  );
+  box-shadow:
+    0 0 8px color-mix(in oklab, var(--tube) 80%, transparent),
+    0 0 22px color-mix(in oklab, var(--tube) 55%, transparent);
+}
+
+/* Light pooling on the wall behind a sign. */
+@utility bloom {
+  --tube: var(--color-mint);
+  background-image: radial-gradient(
+    58% 58% at 50% 42%,
+    color-mix(in oklab, var(--tube) 34%, transparent),
+    transparent 72%
+  );
+}
+
+/* Softer legacy glow, still used on body-scale type where full neon is loud. */
+@utility text-glow {
+  text-shadow: 0 0 0.45em color-mix(in oklab, currentColor 45%, transparent);
+}
+
+@utility text-glow-sm {
+  text-shadow: 0 0 0.3em color-mix(in oklab, currentColor 35%, transparent);
+}
+
+/* ---------------------------------------------------------------------------
+   Hand-made edges. Lopsided radii read as drawn-by-hand rather than
+   drawn-by-machine; alternating the two keeps a row of panels from looking
+   stamped out.
+--------------------------------------------------------------------------- */
+
+@utility edge-drawn {
+  border-radius: 255px 14px 225px 16px / 16px 225px 14px 255px;
+}
+
+@utility edge-drawn-alt {
+  border-radius: 16px 225px 14px 255px / 255px 14px 225px 16px;
+}
+
+/* Theatre-marquee bulbs running along the top and bottom edge of a plate.
+   Keep vertical padding above 0.75rem so the type clears the lamps. */
+@utility marquee-bulbs {
+  --bulb: var(--color-amber);
+  background-image:
+    radial-gradient(circle at center, var(--bulb) 36%, transparent 41%),
+    radial-gradient(circle at center, var(--bulb) 36%, transparent 41%);
+  background-size:
+    18px 9px,
+    18px 9px;
+  background-position:
+    9px top,
+    9px bottom;
+  background-repeat: repeat-x, repeat-x;
+}
+
+/* The red plate the ad hangs off the side of the set — one slanted edge. */
+@utility ad-flag {
+  clip-path: polygon(6% 0, 100% 0, 100% 100%, 0 100%);
+}
+
+/* Rule struck through a word, as CROSLEY is in the reference headline. */
+@utility rule-through {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset-inline: -0.08em;
+    top: 52%;
+    height: 0.07em;
+    background: currentColor;
+  }
+}
+
+@utility shadow-print {
+  box-shadow: 6px 6px 0 0 var(--color-screen-2);
+}
+
+/* ---------------------------------------------------------------------------
+   Tube surface: raster, grain, vignette
+--------------------------------------------------------------------------- */
+
+@utility crt-raster {
+  background-image:
+    repeating-linear-gradient(
+      to bottom,
+      rgb(0 0 0 / 0.32) 0 1px,
+      transparent 1px 3px
+    ),
+    repeating-linear-gradient(
+      to right,
+      rgb(255 0 0 / 0.05) 0 1px,
+      rgb(0 255 0 / 0.05) 1px 2px,
+      rgb(0 60 255 / 0.05) 2px 3px
+    );
+}
+
+@utility crt-vignette {
+  background-image:
+    radial-gradient(
+      118% 96% at 50% 50%,
+      transparent 42%,
+      rgb(0 0 0 / 0.55) 100%
+    ),
+    linear-gradient(158deg, rgb(255 255 255 / 0.05) 0%, transparent 34%);
+}
+
+/* Film grain — the single biggest thing separating "printed" from "rendered". */
+@utility grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 140px 140px;
+}
+
+@media (prefers-contrast: more), (prefers-reduced-transparency: reduce) {
+  .crt-raster,
+  .crt-vignette,
+  .grain {
+    background-image: none;
+  }
+}

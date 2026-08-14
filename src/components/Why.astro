@@ -1,0 +1,29 @@
+---
+import Section from './Section.astro';
+---
+
+<Section labelledby="why-title">
+  {/* Script pull-quote over dense two-column body copy, the way the reference
+      ad sets its sell paragraph beneath the headline. */}
+  <p
+    id="why-title"
+    class="neon max-w-[22ch] font-script text-3xl text-balance [--tube:var(--color-signal)] sm:max-w-[30ch] sm:text-4xl"
+  >
+    a fresh challenge in hardware
+  </p>
+
+  <div
+    class="mt-8 border-t-2 border-phosphor/20 pt-8 text-base text-pretty text-phosphor-dim sm:columns-2 sm:gap-12 sm:text-sm"
+  >
+    <p>
+      Mint is a short break from the big projects everyone&rsquo;s been slaving
+      away on. Most people lately have gravitated toward big, extravagant
+      builds. Those can wear on you mentally.
+    </p>
+    <p class="mt-4">
+      Mint is a lower-stakes, lower-hour-count alternative &mdash; something a
+      beginner or an advanced builder can pick up, finish, and actually feel
+      good about shipping in a short amount of time.
+    </p>
+  </div>
+</Section>
