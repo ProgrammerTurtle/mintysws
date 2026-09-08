@@ -46,6 +46,16 @@ const ogImage = new URL(withBase('altoids-tin-trimmed.png'), Astro.site);
   <body
     class="isolate min-h-dvh bg-screen font-body text-phosphor antialiased"
   >
+    {/* First focusable element on every page: lets keyboard and screen-reader
+        users jump the masthead straight to the page's <main id="main">.
+        Off-screen until focused, then a drawn plate in the palette. */}
+    <a
+      href="#main"
+      class="skip-link inline-flex min-h-11 items-center border-2 border-mint bg-screen px-4 py-2 text-xs font-semibold tracking-widest text-mint uppercase shadow-paste focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint"
+    >
+      Skip to content
+    </a>
+
     <PaperStock />
 
     <slot />

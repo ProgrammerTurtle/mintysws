@@ -22,7 +22,7 @@ const description =
       clip on the x-axis so they can never open a horizontal scrollbar. `clip`
       rather than `hidden` so it does not become a scroll container for the
       sticky header. */}
-  <main id="main" class="overflow-x-clip">
+  <main id="main" tabindex="-1" class="overflow-x-clip">
     {/* Crawl sits above the hero so it is visible without scrolling */}
     <Ticker />
     <Hero />

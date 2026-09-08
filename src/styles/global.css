@@ -142,6 +142,22 @@
   }
 }
 
+/* Skip link. Parked just above the viewport so it stays focusable and in the
+   accessibility tree, then drops into the top-left corner when a keyboard user
+   tabs to it. Written as two plain rules rather than an @utility with a nested
+   &:focus, whose emitted cascade did not let the focus state win. Visible
+   styling is applied on the element itself; this only handles hide/reveal. */
+.skip-link {
+  position: fixed;
+  top: 0.5rem;
+  left: -9999px;
+  z-index: 50;
+}
+
+.skip-link:focus {
+  left: 0.5rem;
+}
+
 /* ---------------------------------------------------------------------------
    Ink. `--tube` names which plate an element is set in, per element, so one
    utility inks a numeral, a rule or a word in any of the palette's colours.
