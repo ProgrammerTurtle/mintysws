@@ -127,7 +127,7 @@ const faqs = [
   },
   {
     q: 'How long does review take?',
-    a: 'Reviews will take up to 1 week. Watch the #mint channel on Slack for the latest.',
+    a: 'Reviews usually land within a week. Watch the #mint channel on Slack for the latest.',
   },
 ];
 ---
@@ -147,6 +147,14 @@ const faqs = [
         <span class="text-phosphor">Read the</span>
         <span class="neon [--tube:var(--color-mint)]">docs</span>
       </h1>
+
+      {/* Eligibility for mobile: the header only shows the "For teens 13–18"
+          ident from lg up, and the docs page has no hero to carry it below
+          that — so a phone visitor deep-linking here would not see the age
+          range until the FAQ. Mirrors the home hero's lg:hidden line. */}
+      <p class="mt-4 text-sm text-phosphor-dim lg:hidden">
+        For teens <span class="text-amber">13&ndash;18</span>, anywhere.
+      </p>
 
       <nav aria-label="On this page" class="mt-10">
         <ul
@@ -265,7 +273,7 @@ const faqs = [
           href={SUBMIT_URL}
           class="edge-drawn mt-6 inline-flex min-h-11 items-center bg-linear-to-br from-mint to-mint-deep px-6 py-3 text-sm font-bold tracking-widest text-screen uppercase shadow-paste hover:from-mint hover:to-mint focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-phosphor"
         >
-          Submit your design
+          Start your submission
         </a>
       </div>
     </Section>
@@ -279,11 +287,14 @@ const faqs = [
         FAQ
       </h2>
 
-      <dl class="mt-12 max-w-[68ch] divide-y-2 divide-phosphor/12">
+      {/* Native <details> disclosures: each question is a real heading and a
+          keyboard/screen-reader control, and answers collapse so the section
+          is a short scan on a phone. JS-free. The stable per-question id sits
+          on the <details> so a deep link lands on (and opens) the right entry;
+          the global :target rule clears the sticky header. */}
+      <div class="mt-12 max-w-[68ch] divide-y-2 divide-phosphor/12">
         {
           faqs.map((item) => {
-            // Stable per-question id so a single answer can be linked or
-            // bookmarked; the global :target rule clears the sticky header.
             const id =
               'faq-' +
               item.q
@@ -291,18 +302,41 @@ const faqs = [
                 .replace(/[^a-z0-9]+/g, '-')
                 .replace(/^-+|-+$/g, '');
             return (
-              <div id={id} class="py-7 first:pt-0">
-                <dt class="font-display text-base leading-[1.35] text-phosphor uppercase sm:text-lg">
-                  {item.q}
-                </dt>
-                <dd class="mt-3 max-w-[60ch] text-base text-pretty text-phosphor-dim">
+              <details id={id} class="group">
+                <summary class="flex cursor-pointer list-none items-center justify-between gap-4 py-6 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint [&::-webkit-details-marker]:hidden">
+                  <h3 class="font-display text-base leading-[1.35] text-phosphor uppercase group-open:text-mint sm:text-lg">
+                    {item.q}
+                  </h3>
+                  {/* Drawn +/× toggle in the site's typographic idiom, inked in
+                      the FAQ's mint plate; rotates to a cross when open. */}
+                  <span
+                    aria-hidden="true"
+                    class="shrink-0 font-display text-xl leading-none text-mint transition-transform duration-200 group-open:rotate-45"
+                  >
+                    +
+                  </span>
+                </summary>
+                <p class="max-w-[60ch] pb-6 text-base text-pretty text-phosphor-dim">
                   {item.a}
-                </dd>
-              </div>
+                </p>
+              </details>
             );
           })
         }
-      </dl>
+      </div>
+
+      {/* Repeat the action at the end so a reader who scrolled the whole
+          handbook can act without returning to the mid-page button. Secondary
+          weight, so it does not compete with the primary CTA above. */}
+      <p class="mt-14 flex flex-wrap items-center gap-x-4 gap-y-3 text-base text-phosphor-dim">
+        <span>Ready to go?</span>
+        <a
+          href={SUBMIT_URL}
+          class="edge-drawn-alt inline-flex min-h-11 items-center border-2 border-phosphor/35 px-5 py-2.5 text-xs font-semibold tracking-widest text-phosphor uppercase hover:border-mint hover:text-mint focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint"
+        >
+          Start your submission
+        </a>
+      </p>
 
       <p class="mt-12 max-w-[60ch] text-base text-pretty text-phosphor-dim">
         Still have a question? Ask in <a
