@@ -80,7 +80,10 @@ const submitSteps = [
   },
   {
     title: 'Submit your design',
-    copy: 'Send your design and a link to your journal through the Mint submission form.',
+    // The linked phrase is split out so "Mint submission form" is the anchor.
+    copy: 'Send your design and a link to your journal through the ',
+    link: { href: SUBMIT_URL, text: 'Mint submission form' },
+    copyEnd: '.',
   },
   {
     title: 'Get your grant and tin',
@@ -251,7 +254,12 @@ const faqs = [
                     {step.title}
                   </h3>
                   <p class="mt-2 max-w-[56ch] text-base text-pretty text-phosphor-dim sm:text-sm">
-                    {step.copy}
+                    {step.copy}{step.link && (
+                      <a
+                        href={step.link.href}
+                        class="text-mint underline underline-offset-4 hover:text-phosphor focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint"
+                      >{step.link.text}</a>
+                    )}{step.copyEnd}
                   </p>
                 </div>
               </li>
@@ -259,23 +267,6 @@ const faqs = [
           })
         }
       </ol>
-
-      {/* The page's primary action — the submit flow has to resolve somewhere.
-          A lead-in ties it to the steps above so the button is the flow's
-          conclusion, not a stray control. Points at the home page's Submit
-          section, the same destination as the header Submit button, until the
-          live form URL exists. */}
-      <div class="mt-14 border-t-2 border-phosphor/15 pt-10">
-        <p class="max-w-[56ch] text-base text-pretty text-phosphor-dim">
-          Design drawn up and journal started? That is everything you need.
-        </p>
-        <a
-          href={SUBMIT_URL}
-          class="edge-drawn mt-6 inline-flex min-h-11 items-center bg-linear-to-br from-mint to-mint-deep px-6 py-3 text-sm font-bold tracking-widest text-screen uppercase shadow-paste hover:from-mint hover:to-mint focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-phosphor"
-        >
-          Start your submission
-        </a>
-      </div>
     </Section>
 
     {/* -- FAQ --------------------------------------------------------------- */}
