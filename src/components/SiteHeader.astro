@@ -31,10 +31,17 @@ const links = [
         aria-label="Homepage"
         class="flex min-h-11 items-center gap-3 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-mint"
       >
-        <span
-          class="grid size-7 place-items-center bg-signal font-display text-sm leading-none text-knockout"
-          aria-hidden="true">M</span
-        >
+        {/* The tin badge mark. Decorative beside the wordmark, so it is hidden
+            from assistive tech — the "MINT" text and the link's own label carry
+            the meaning. */}
+        <img
+          src={withBase('mint-logo.png')}
+          alt=""
+          aria-hidden="true"
+          width="685"
+          height="545"
+          class="h-7 w-auto"
+        />
         <span class="font-display text-lg">MINT</span>
       </a>
 
