@@ -3,29 +3,138 @@ import Layout from '../layouts/Layout.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import Section from '../components/Section.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import { withBase } from '../lib/url';
 
 const title = 'Mint — documentation';
 const description =
   'Project guidelines, how to submit, and answers to common questions for the Mint hardware YSWS.';
 
-// Structure only — the copy for each section is written later. Each entry is
-// one top-level doc section; `tube` inks its heading in a palette colour, the
-// same device the home page uses so the two pages read as one publication.
+const SLACK_URL = 'https://slack.com/archives/C0BK69GFA0Z';
+const home = withBase('/');
+
+// ---------------------------------------------------------------------------
+// DRAFT COPY. Every claim here is drawn from PRODUCT.md and the wording already
+// on the site; nothing is invented. Two things are genuinely undecided and are
+// deliberately NOT given specifics — the live submission-form URL and how long
+// review takes / the approval bar. They are flagged inline where they land.
+// The prose lives in these arrays so it can be rewritten without touching the
+// markup below.
+// ---------------------------------------------------------------------------
+
+// Section identity drives both the on-this-page nav and each heading's colour.
 const sections = [
+  { id: 'guidelines', label: 'Project guidelines', tube: 'var(--color-signal)' },
+  { id: 'how-to-submit', label: 'How to submit', tube: 'var(--color-amber)' },
+  { id: 'faq', label: 'FAQ', tube: 'var(--color-mint)' },
+];
+
+const guidelinesIntro =
+  'Mint is a Hack Club YSWS — you ship, we ship. Build a hardware project ' +
+  'that fits inside a real Altoids tin, journal the design on GitHub, and we ' +
+  'send you the tin plus a $75 grant to build it. Here is what to keep in mind.';
+
+const guidelines = [
   {
-    id: 'guidelines',
-    label: 'Project guidelines',
-    tube: 'var(--color-signal)',
+    title: 'Fit the tin',
+    copy: 'Your build has to fit inside a real Altoids tin — 3.75″ × 2.375″ × 0.8″. That envelope is the whole brief; everything else is up to you.',
   },
   {
-    id: 'how-to-submit',
-    label: 'How to submit',
-    tube: 'var(--color-amber)',
+    title: 'Design first, build after',
+    copy: 'Mint funds a design, not a finished build. You submit a design and its journal, the grant and tin follow, and you build once they arrive — so cost is never a barrier to starting.',
   },
   {
-    id: 'faq',
-    label: 'FAQ',
-    tube: 'var(--color-mint)',
+    title: 'Journal in the open',
+    copy: 'Keep a public JOURNAL.md in your GitHub repository tracking how the design came together. No timelapses, no screen recordings — a written record is enough.',
+  },
+  {
+    title: 'The grant is for parts',
+    copy: 'The $75 is paid up front to fund the parts for your build. It arrives before you build, not as a reimbursement after.',
+  },
+  {
+    title: 'Open to teens 13–18',
+    copy: 'Mint is for teenagers aged 13 to 18, anywhere in the world. You do not need to be a Hack Club member to take part.',
+  },
+  {
+    title: 'Beginners and veterans both',
+    copy: 'The tin is the only floor. Complete beginners and experienced builders are equally first-class here.',
+  },
+  {
+    title: 'No clock',
+    copy: 'Mint is ongoing — no deadline, no cohort window, no cap. Start whenever you are ready.',
+  },
+];
+
+const submitIntro =
+  'From idea to funded build in a few steps. The order matters: you design and ' +
+  'journal first, then submit, then build once your grant and tin land.';
+
+const submitSteps = [
+  {
+    title: 'Plan',
+    copy: 'Your envelope and budget are fixed — a real Altoids tin, 3.75″ × 2.375″ × 0.8″, and $75. Decide what to build inside those limits.',
+  },
+  {
+    title: 'Design',
+    copy: 'Sketch it, prototype it, and work the design out. This is what you submit — not a finished build.',
+  },
+  {
+    title: 'Journal on GitHub',
+    copy: 'Create a public GitHub repository and log your design process in a JOURNAL.md file. No timelapses required.',
+  },
+  {
+    title: 'Submit your design',
+    copy: 'Send your design and a link to your journal through the Mint submission form.',
+  },
+  {
+    title: 'Get your grant and tin',
+    // Review timing and the approval bar are undecided in PRODUCT.md — no
+    // timeframe is stated here on purpose.
+    copy: 'We review your design, then send the $75 grant and the Altoids tin so you can start building.',
+  },
+  {
+    title: 'Build it',
+    copy: 'Build the project inside the tin, and keep your journal public as it comes together.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'Who can take part?',
+    a: 'Any teen aged 13 to 18, anywhere in the world. You do not need to be a Hack Club member.',
+  },
+  {
+    q: 'What does it cost me?',
+    a: 'Nothing. The $75 grant is paid up front — before you build — so you are never out of pocket for parts.',
+  },
+  {
+    q: 'How big can my project be?',
+    a: 'It has to fit inside a real Altoids tin: 3.75″ × 2.375″ × 0.8″. That is the only hard limit.',
+  },
+  {
+    q: 'Do I submit a finished build or a design?',
+    a: 'A design, plus its journal. Funding follows the design; you build the real thing after the grant and tin arrive.',
+  },
+  {
+    q: 'What do I have to journal?',
+    a: 'Keep a public JOURNAL.md in your GitHub repository documenting the design process. No timelapses or screen recordings.',
+  },
+  {
+    q: 'Is there a deadline?',
+    a: 'No. Mint is ongoing — no cohort window and no cap. Start whenever you are ready.',
+  },
+  {
+    q: 'What kinds of things can I build?',
+    a: 'Anything that fits the tin — a pocket synth, a tiny game, a mini cyberdeck, whatever you dream up.',
+  },
+  {
+    q: 'I have never built hardware before. Can I still do it?',
+    a: 'Yes. Beginners and advanced builders are both first-class; the tin is the only floor.',
+  },
+  {
+    q: 'How long does review take?',
+    // Undecided in PRODUCT.md — answered honestly rather than with a made-up
+    // timeframe. Firm this up once the process is settled.
+    a: 'We are still settling the timing. Watch the #mint channel on Slack for the latest.',
   },
 ];
 ---
@@ -34,12 +143,9 @@ const sections = [
   <SiteHeader />
 
   <main id="main" class="overflow-x-clip">
-    {/* Page masthead + contents. The contents list doubles as in-page
-        navigation so a long handbook stays reachable from the top. */}
+    {/* Masthead + contents. The contents list doubles as in-page navigation. */}
     <div class="page-container pt-12 pb-4 sm:pt-16">
-      <p
-        class="text-xs font-semibold tracking-widest text-phosphor-dim uppercase"
-      >
+      <p class="text-xs font-semibold tracking-widest text-phosphor-dim uppercase">
         The Mint handbook
       </p>
       <h1
@@ -70,30 +176,142 @@ const sections = [
       </nav>
     </div>
 
-    {
-      sections.map((section, index) => (
-        <Section
-          id={section.id}
-          labelledby={`${section.id}-title`}
-          class:list={[index > 0 && 'border-t-2 border-phosphor/15']}
-        >
-          <h2
-            id={`${section.id}-title`}
-            class="neon max-w-[24ch] font-display text-3xl leading-[1.2] text-balance uppercase sm:text-4xl lg:text-5xl"
-            style={`--tube: ${section.tube}`}
-          >
-            {section.label}
-          </h2>
+    {/* -- Project guidelines ------------------------------------------------ */}
+    <Section id="guidelines" labelledby="guidelines-title">
+      <h2
+        id="guidelines-title"
+        class="neon max-w-[24ch] font-display text-3xl leading-[1.2] text-balance uppercase [--tube:var(--color-signal)] sm:text-4xl lg:text-5xl"
+      >
+        Project guidelines
+      </h2>
+      <p class="justified mt-8 max-w-[60ch] text-lg text-pretty text-phosphor-dim sm:text-base">
+        {guidelinesIntro}
+      </p>
 
-          {/* CONTENT PLACEHOLDER — copy for this section is written later.
-              Keep the heading above; replace the note below with the real
-              content when it is ready. */}
-          <p class="mt-8 max-w-[56ch] text-lg text-pretty text-phosphor-dim italic sm:text-base">
-            Content coming soon.
-          </p>
-        </Section>
-      ))
-    }
+      <ul role="list" class="mt-12 grid gap-10 sm:grid-cols-2 sm:gap-x-col lg:gap-x-col-lg">
+        {
+          guidelines.map((item) => (
+            <li class="flex gap-3.5">
+              <span aria-hidden="true" class="mt-1 shrink-0 text-signal">
+                ▸
+              </span>
+              <div>
+                <h3 class="font-display text-base leading-[1.35] text-phosphor uppercase">
+                  {item.title}
+                </h3>
+                <p class="mt-2 max-w-[52ch] text-base text-pretty text-phosphor-dim sm:text-sm">
+                  {item.copy}
+                </p>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </Section>
+
+    {/* -- How to submit ----------------------------------------------------- */}
+    <Section
+      id="how-to-submit"
+      labelledby="how-to-submit-title"
+      class="border-t-2 border-phosphor/15"
+    >
+      <h2
+        id="how-to-submit-title"
+        class="neon max-w-[24ch] font-display text-3xl leading-[1.2] text-balance uppercase [--tube:var(--color-amber)] sm:text-4xl lg:text-5xl"
+      >
+        How to submit
+      </h2>
+      <p class="justified mt-8 max-w-[60ch] text-lg text-pretty text-phosphor-dim sm:text-base">
+        {submitIntro}
+      </p>
+
+      <ol role="list" class="mt-12 space-y-10">
+        {
+          submitSteps.map((step, index) => {
+            // Cycle the palette down the list, as "how it works" does on the
+            // home page, so the numerals read as a lit track.
+            const tubes = [
+              'var(--color-signal)',
+              'var(--color-amber)',
+              'var(--color-mint)',
+            ];
+            const tube = tubes[index % tubes.length];
+            return (
+              <li class="flex gap-5 sm:gap-6">
+                <span
+                  class="neon shrink-0 font-display text-3xl leading-none tabular-nums sm:text-4xl"
+                  style={`--tube: ${tube}`}
+                  aria-hidden="true"
+                >
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+                <div class="pt-1">
+                  <h3 class="font-display text-base leading-[1.35] text-phosphor uppercase">
+                    {step.title}
+                  </h3>
+                  <p class="mt-2 max-w-[56ch] text-base text-pretty text-phosphor-dim sm:text-sm">
+                    {step.copy}
+                  </p>
+                </div>
+              </li>
+            );
+          })
+        }
+      </ol>
+
+      {/* The submission form is not wired yet (see Submit.astro, FORM_URL), so
+          the interim path is #mint — stated honestly rather than linking a
+          placeholder. Remove this note once the form is live. */}
+      <p class="mt-12 max-w-[60ch] text-base text-pretty text-phosphor-dim">
+        The submission form is being wired up. Until it is live, post your
+        design in <a
+          href={SLACK_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-mint underline underline-offset-4 hover:text-phosphor focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint"
+          >#mint on Slack<span class="sr-only"> (opens in a new tab)</span></a
+        > and we will pick it up from there.
+      </p>
+    </Section>
+
+    {/* -- FAQ --------------------------------------------------------------- */}
+    <Section id="faq" labelledby="faq-title" class="border-t-2 border-phosphor/15">
+      <h2
+        id="faq-title"
+        class="neon max-w-[24ch] font-display text-3xl leading-[1.2] text-balance uppercase [--tube:var(--color-mint)] sm:text-4xl lg:text-5xl"
+      >
+        FAQ
+      </h2>
+
+      <dl class="mt-12 max-w-[68ch] divide-y-2 divide-phosphor/12">
+        {
+          faqs.map((item) => (
+            <div class="py-7 first:pt-0">
+              <dt class="font-display text-base leading-[1.35] text-phosphor uppercase sm:text-lg">
+                {item.q}
+              </dt>
+              <dd class="mt-3 max-w-[60ch] text-base text-pretty text-phosphor-dim">
+                {item.a}
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+
+      <p class="mt-12 max-w-[60ch] text-base text-pretty text-phosphor-dim">
+        Still have a question? Ask in <a
+          href={SLACK_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-mint underline underline-offset-4 hover:text-phosphor focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint"
+          >#mint on Slack<span class="sr-only"> (opens in a new tab)</span></a
+        >, or head back to the <a
+          href={home}
+          class="text-mint underline underline-offset-4 hover:text-phosphor focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint"
+          >home page</a
+        >.
+      </p>
+    </Section>
   </main>
 
   <SiteFooter />
