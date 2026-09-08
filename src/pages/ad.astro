@@ -4,11 +4,12 @@
 // different shape: no nav, no crawl, no anchors, nothing that only works in a
 // browser. Everything here has to survive being a flat image.
 //
-// Treated as an aged artifact: a page cut from a 1948 magazine. The photo is a
-// real clustered-dot halftone, the red plate is misregistered against the
-// black, the stock is yellowed and mottled, and the body copy is a justified
-// serif — because mono is the least period-correct thing available and this
-// sheet, unlike the site, is not a piece of software.
+// Treated as an aged artifact: a page cut from a 1948 magazine. The product is
+// shown as a drawn brand illustration — the program's own tin — the way an
+// illustrated ad of the period carried its packshot; the red plate is
+// misregistered against the black, the stock is yellowed and mottled, and the
+// body copy is a justified serif — because mono is the least period-correct
+// thing available and this sheet, unlike the site, is not a piece of software.
 //
 // Sized in A4 proportions so Ctrl/Cmd-P → Save as PDF yields exactly one page
 // with no letterboxing. All type is set in `cqw` against the sheet itself, so
@@ -24,8 +25,11 @@ const title = 'Mint — an Altoids-tin hardware YSWS';
 const description =
   'Ship a hardware project sized to an Altoids tin, get a $75 grant plus the tin itself, and journal the build.';
 
-// Screened to 8x8 clustered dots at generation time, not filtered in CSS.
-const tin = withBase('altoids-tin-halftone.png');
+// The program's own tin, relettered "Hack Club's Mint"; the same brand mark the
+// site's hero carries, so flyer and page agree.
+const tin = withBase('mint-tin.png');
+// The tin-badge logo, signal red on transparent, for the sign-off lockup.
+const logo = withBase('mint-logo.png');
 
 const canonical = new URL(withBase('ad'), Astro.site);
 
@@ -99,9 +103,9 @@ const AD_URL_LABEL = 'mint.hackclub.com';
           <div class="relative">
             <img
               src={tin}
-              alt="A closed Altoids tin, the build envelope for a Mint project"
-              width="824"
-              height="602"
+              alt="A tin relettered as Hack Club's Mint — Curiously Cool Hardware, the build envelope for a Mint project"
+              width="1756"
+              height="1331"
               class="w-full"
             />
 
@@ -208,11 +212,23 @@ const AD_URL_LABEL = 'mint.hackclub.com';
             </p>
           </div>
 
-          <p
-            class="misregistered shrink-0 font-display text-[12.5cqw] leading-[0.78] text-signal uppercase"
-          >
-            Mint
-          </p>
+          {/* Sign-off lockup: the tin badge over the wordmark, as in the site
+              footer, so the flyer closes on the same mark. */}
+          <div class="flex shrink-0 flex-col items-end gap-[1.5cqw]">
+            <img
+              src={logo}
+              alt=""
+              aria-hidden="true"
+              width="685"
+              height="545"
+              class="h-[8cqw] w-auto"
+            />
+            <p
+              class="misregistered font-display text-[12.5cqw] leading-[0.78] text-signal uppercase"
+            >
+              Mint
+            </p>
+          </div>
         </div>
       </div>
     </article>
