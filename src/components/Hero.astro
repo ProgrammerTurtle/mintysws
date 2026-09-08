@@ -2,12 +2,12 @@
 import Starburst from './Starburst.astro';
 import { withBase } from '../lib/url';
 
-// Screened to 8x8 clustered dots at generation time, not filtered in CSS, so
-// the tin reads as a period halftone rather than a glossy packshot. Trimmed
-// from the 960x622 master in src/assets, so it is not upscaled at any
-// breakpoint. The untouched photo stays as the Open Graph image, where a
-// halftone would read as a rendering fault rather than a choice.
-const tin = withBase('altoids-tin-halftone.png');
+// The program's own tin: an Altoids-style tin relettered as "Hack Club's Mint
+// — Curiously Cool Hardware" in the brand palette. A flat vector illustration
+// on a transparent field, so it drops straight onto the cream stock; no
+// halftone screen, because this is a drawn mark rather than a photographed
+// packshot pretending to be period print.
+const tin = withBase('mint-tin.png');
 ---
 
 <div class="relative page-container pt-8 pb-16 sm:pt-12 sm:pb-24">
@@ -19,7 +19,7 @@ const tin = withBase('altoids-tin-halftone.png');
   >
     <span>Ran by <span class="font-bold text-phosphor">Parker Rupe</span></span>
     <span aria-hidden="true" class="text-signal">&#9733;</span>
-    <span>Sponsored by <span class="font-bold text-amber">Max Goldberg&#8209;Sparg</span></span>
+    <span>Sponsored by <span class="font-bold text-amber">Max Goldberg&#8209;Spar</span></span>
   </p>
 
   <div class="flex flex-wrap items-start justify-between gap-x-8 gap-y-6">
@@ -63,9 +63,9 @@ const tin = withBase('altoids-tin-halftone.png');
       <div class="relative mx-auto w-full max-w-2xl">
         <img
           src={tin}
-          alt="A closed Altoids tin, the build envelope for a Mint project"
-          width="824"
-          height="602"
+          alt="A tin relettered as Hack Club's Mint — Curiously Cool Hardware, the build envelope for a Mint project"
+          width="1756"
+          height="1331"
           fetchpriority="high"
           decoding="async"
           class="w-full"
