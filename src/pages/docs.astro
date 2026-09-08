@@ -253,12 +253,17 @@ const faqs = [
       </ol>
 
       {/* The page's primary action — the submit flow has to resolve somewhere.
-          Points at the home page's Submit section, the same destination as the
-          header Submit button, until the live form URL exists. */}
-      <div class="mt-14">
+          A lead-in ties it to the steps above so the button is the flow's
+          conclusion, not a stray control. Points at the home page's Submit
+          section, the same destination as the header Submit button, until the
+          live form URL exists. */}
+      <div class="mt-14 border-t-2 border-phosphor/15 pt-10">
+        <p class="max-w-[56ch] text-base text-pretty text-phosphor-dim">
+          Design drawn up and journal started? That is everything you need.
+        </p>
         <a
           href={SUBMIT_URL}
-          class="edge-drawn inline-flex min-h-11 items-center bg-linear-to-br from-mint to-mint-deep px-6 py-3 text-sm font-bold tracking-widest text-screen uppercase shadow-paste hover:from-mint hover:to-mint focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-phosphor"
+          class="edge-drawn mt-6 inline-flex min-h-11 items-center bg-linear-to-br from-mint to-mint-deep px-6 py-3 text-sm font-bold tracking-widest text-screen uppercase shadow-paste hover:from-mint hover:to-mint focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-phosphor"
         >
           Submit your design
         </a>
@@ -276,16 +281,26 @@ const faqs = [
 
       <dl class="mt-12 max-w-[68ch] divide-y-2 divide-phosphor/12">
         {
-          faqs.map((item) => (
-            <div class="py-7 first:pt-0">
-              <dt class="font-display text-base leading-[1.35] text-phosphor uppercase sm:text-lg">
-                {item.q}
-              </dt>
-              <dd class="mt-3 max-w-[60ch] text-base text-pretty text-phosphor-dim">
-                {item.a}
-              </dd>
-            </div>
-          ))
+          faqs.map((item) => {
+            // Stable per-question id so a single answer can be linked or
+            // bookmarked; the global :target rule clears the sticky header.
+            const id =
+              'faq-' +
+              item.q
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/^-+|-+$/g, '');
+            return (
+              <div id={id} class="py-7 first:pt-0">
+                <dt class="font-display text-base leading-[1.35] text-phosphor uppercase sm:text-lg">
+                  {item.q}
+                </dt>
+                <dd class="mt-3 max-w-[60ch] text-base text-pretty text-phosphor-dim">
+                  {item.a}
+                </dd>
+              </div>
+            );
+          })
         }
       </dl>
 
