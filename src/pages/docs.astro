@@ -1,0 +1,100 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import Section from '../components/Section.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+const title = 'Mint — documentation';
+const description =
+  'Project guidelines, how to submit, and answers to common questions for the Mint hardware YSWS.';
+
+// Structure only — the copy for each section is written later. Each entry is
+// one top-level doc section; `tube` inks its heading in a palette colour, the
+// same device the home page uses so the two pages read as one publication.
+const sections = [
+  {
+    id: 'guidelines',
+    label: 'Project guidelines',
+    tube: 'var(--color-signal)',
+  },
+  {
+    id: 'how-to-submit',
+    label: 'How to submit',
+    tube: 'var(--color-amber)',
+  },
+  {
+    id: 'faq',
+    label: 'FAQ',
+    tube: 'var(--color-mint)',
+  },
+];
+---
+
+<Layout title={title} description={description}>
+  <SiteHeader />
+
+  <main id="main" class="overflow-x-clip">
+    {/* Page masthead + contents. The contents list doubles as in-page
+        navigation so a long handbook stays reachable from the top. */}
+    <div class="page-container pt-12 pb-4 sm:pt-16">
+      <p
+        class="text-xs font-semibold tracking-widest text-phosphor-dim uppercase"
+      >
+        The Mint handbook
+      </p>
+      <h1
+        class="mt-4 max-w-[18ch] font-display text-4xl leading-[1.15] text-balance uppercase sm:text-5xl lg:text-6xl"
+      >
+        <span class="text-phosphor">Read the</span>
+        <span class="neon [--tube:var(--color-mint)]">docs</span>
+      </h1>
+
+      <nav aria-label="On this page" class="mt-10">
+        <ul
+          role="list"
+          class="flex flex-wrap gap-x-8 gap-y-3 text-xs font-semibold tracking-widest uppercase"
+        >
+          {
+            sections.map((section) => (
+              <li>
+                <a
+                  href={`#${section.id}`}
+                  class="inline-flex min-h-11 items-center border-b-2 border-transparent py-2 text-phosphor-dim hover:border-mint hover:text-phosphor focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-mint"
+                >
+                  {section.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </div>
+
+    {
+      sections.map((section, index) => (
+        <Section
+          id={section.id}
+          labelledby={`${section.id}-title`}
+          class:list={[index > 0 && 'border-t-2 border-phosphor/15']}
+        >
+          <h2
+            id={`${section.id}-title`}
+            class="neon max-w-[24ch] font-display text-3xl leading-[1.2] text-balance uppercase sm:text-4xl lg:text-5xl"
+            style={`--tube: ${section.tube}`}
+          >
+            {section.label}
+          </h2>
+
+          {/* CONTENT PLACEHOLDER — copy for this section is written later.
+              Keep the heading above; replace the note below with the real
+              content when it is ready. */}
+          <p class="mt-8 max-w-[56ch] text-lg text-pretty text-phosphor-dim italic sm:text-base">
+            Content coming soon.
+          </p>
+        </Section>
+      ))
+    }
+  </main>
+
+  <SiteFooter />
+</Layout>

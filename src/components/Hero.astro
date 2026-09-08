@@ -10,7 +10,18 @@ import { withBase } from '../lib/url';
 const tin = withBase('altoids-tin-halftone.png');
 ---
 
-<div class="relative page-container pt-12 pb-16 sm:pt-16 sm:pb-24">
+<div class="relative page-container pt-8 pb-16 sm:pt-12 sm:pb-24">
+  {/* Imprint credit, set like the "presented by" line on a period ad. First
+      thing in the hero so it clears the fold on phone and desktop alike, and
+      it rides the ★ device from the ticker so it belongs to the page. */}
+  <p
+    class="mb-8 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs tracking-widest text-phosphor-dim uppercase sm:mb-10"
+  >
+    <span>Ran by <span class="font-bold text-phosphor">Parker Rupe</span></span>
+    <span aria-hidden="true" class="text-signal">&#9733;</span>
+    <span>Sponsored by <span class="font-bold text-amber">Max Goldberg&#8209;Sparg</span></span>
+  </p>
+
   <div class="flex flex-wrap items-start justify-between gap-x-8 gap-y-6">
     <p
       class="neon font-script text-5xl [--tube:var(--color-signal)] sm:text-6xl"

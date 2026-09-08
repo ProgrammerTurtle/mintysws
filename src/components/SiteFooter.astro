@@ -1,4 +1,6 @@
 ---
+import { withBase } from '../lib/url';
+
 const year = new Date().getFullYear();
 
 // Required on every Hack Club YSWS site, so these are not optional links and
@@ -28,6 +30,14 @@ const required = [
       </div>
 
       <ul role="list" class="flex flex-col gap-1 sm:items-end">
+        <li>
+          <a
+            href={withBase('docs')}
+            class="inline-flex min-h-11 items-center py-2 text-phosphor-dim hover:text-phosphor focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint pointer-coarse:py-3"
+          >
+            Documentation
+          </a>
+        </li>
         <li>
           <a
             href="https://slack.com/archives/C0BK69GFA0Z"

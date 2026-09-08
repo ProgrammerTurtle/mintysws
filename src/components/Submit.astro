@@ -1,5 +1,6 @@
 ---
 import Section from './Section.astro';
+import { withBase } from '../lib/url';
 
 // Replace with the live Fillout form URL before publishing.
 const FORM_URL = 'https://form.fillout.com/t/your-fillout-form-id';
@@ -18,7 +19,11 @@ const isPlaceholderForm = FORM_URL.includes('your-fillout-form-id');
       class="justified mx-auto mt-6 max-w-[56ch] text-lg text-pretty text-phosphor-dim sm:text-base"
     >
       Tell us what you want to build and we&rsquo;ll send the tin and the $75 so
-      you can build it. Questions first? Drop them in <a
+      you can build it. Questions first? Read the <a
+        href={withBase('docs')}
+        class="text-mint underline underline-offset-4 hover:text-phosphor focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint"
+        >docs</a
+      > or drop them in <a
         href="https://slack.com/archives/C0BK69GFA0Z" target="_blank" rel="noopener noreferrer"
         class="text-mint underline underline-offset-4 hover:text-phosphor focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint"
         >#mint<span class="sr-only"> (opens in a new tab)</span></a
